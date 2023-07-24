@@ -1,7 +1,7 @@
 from functools import wraps
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.exceptions import ValidationError, NotFound
+from rest_framework.exceptions import ValidationError, NotFound, PermissionDenied
 from django.core.exceptions import ImproperlyConfigured, ObjectDoesNotExist
 
 from django.contrib.auth import get_user_model
@@ -20,7 +20,7 @@ def exceptions(func):
             print(e)
             return Response(e.__dict__ if e.__dict__ else { 'detail': str(e) }, status.HTTP_422_UNPROCESSABLE_ENTITY)
         
-        except User.DoesNotExist as e:
+        except (User.DoesNotExist, PermissionDenied) as e:
             print(e.__class__.__name__)
             print(e)
             return Response({'detail': 'Unauthorized'}, status.HTTP_401_UNAUTHORIZED)
