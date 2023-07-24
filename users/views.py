@@ -6,6 +6,9 @@ from rest_framework import status
 
 from lib.exceptions import exceptions
 
+from django.contrib.auth import get_user_model
+User = get_user_model()
+
 # Create your views here.
 
 class RegisterView(APIView):
@@ -21,4 +24,19 @@ class RegisterView(APIView):
         return Response(user_to_add.data, status.HTTP_201_CREATED)
     
 
-#YOU ARE UP TO SETTING UP VALIDATION METHOD IN AUTHENTICATION PART OF NOTES
+class LoginView(APIView):
+    
+    #LOGIN ROUTE
+    #Endpoint: /api/auth/login
+    @exceptions
+    def post(self, request):
+        print('LOGIN DATA ->', request.data)
+
+        email = request.data['email']
+
+        password = request.data['password']
+
+        user_to_login = User.objects.get(email=email)
+
+
+        return Response('HIT LOGIN ROUTE')
