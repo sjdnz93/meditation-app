@@ -12,8 +12,10 @@ class UserSerializer(serializers.ModelSerializer):
         print('DATA BEFORE CUSTOM VALIDATION ->', data)
 
         password = data.pop('password')
+        print('PASSWORD', password)
 
         password_confirmation = data.pop('password_confirmation')
+        print('PASSWORD_CONFIRMATION', password_confirmation)
 
         if password!= password_confirmation:
             raise serializers.ValidationError({'password_confirmation': 'Does not match password'})
@@ -30,4 +32,4 @@ class UserSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'password', 'password_confirmation')
+        fields = ('id', 'username', 'email', 'password', 'password_confirmation', 'first_name')

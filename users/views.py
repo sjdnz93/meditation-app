@@ -18,7 +18,7 @@ class RegisterView(APIView):
         user_to_add = UserSerializer(data=request.data)
         user_to_add.is_valid(raise_exception=True)
         user_to_add.save()
-        return Response(user_to_add, status.HTTP_201_CREATED)
+        return Response(user_to_add.data, status.HTTP_201_CREATED)
     
 
 #YOU ARE UP TO SETTING UP VALIDATION METHOD IN AUTHENTICATION PART OF NOTES
