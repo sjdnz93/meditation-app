@@ -5,6 +5,7 @@ from .serializers.common import UserSerializer
 from rest_framework import status
 from django.contrib.auth.hashers import check_password
 from rest_framework.exceptions import PermissionDenied
+from django.conf import settings
 
 import jwt
 
@@ -44,15 +45,20 @@ class LoginView(APIView):
 
         user_to_login = User.objects.get(email=email)
 
+        name = user_to_login.username
+
+        print('name -> ', name.capitalize())
+
         if not user_to_login.check_password(password):
             print('PASSWORDS DONT MATCH')
             raise PermissionDenied('Unauthorized')
-        
-        
-        
-        token = jwt.encode({ 'sub': user_to_login.id })
+      
+        dt = datetime.now() + timedelta(days=7)
 
+        print('DT -> ', int(dt.strftime('%s')))
 
+        token = jwt.encode({ 'sub': user_to_login.id, 'sub': int(dt.strftime('%s')) }, settings.SECRET_KEY, algorithm='HS256' )
 
+        print('TOKEN ->', token)
 
-        return Response('HIT LOGIN ROUTE')
+        return Response({ 'message': f"Welcome back, {name.capitalize()}", 'token': token})
