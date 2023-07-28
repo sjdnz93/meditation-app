@@ -4,13 +4,31 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from .serializers.common import MeditationSerializer
+from users.serializers.populated import PopulatedUserSerializer
+
 
 from lib.exceptions import exceptions
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 # Create your views here.
 
 class MeditationView(APIView):
+    
+    #GET USER'S MEDITATIONS
+    #endpoint: /api/profile
+
+    def get(self, request, id):
+        print('GET USER MEDITATIONS ROUTE HIT')
+        print('USER ID => ', id)
+        user = User.objects.get(id=id)
+        print('LOGGED IN USER', user)
+        serialized_user = PopulatedUserSerializer(user)
+        print('SERIALIZED USER => ', serialized_user)
+        return Response('GET USER MEDITATIONS ROUTE HIT')
+
     
     #POST NEW MEDITATION
     #endpoint: /api/add/
