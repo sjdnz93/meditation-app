@@ -8,7 +8,8 @@ class Meditation(models.Model):
     genre = models.CharField(max_length=10)
     length = models.CharField(max_length=10)
     thumbnail = models.URLField()
-    url = models.ForeignKey(
+    url = models.URLField()
+    owner = models.ForeignKey(
         'users.User',
         on_delete=models.CASCADE,
         related_name='videos'
