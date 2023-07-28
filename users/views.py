@@ -62,3 +62,4 @@ class LoginView(APIView):
         print('TOKEN ->', token)
 
         return Response({ 'message': f"Welcome back, {name.capitalize()}", 'token': token})
+

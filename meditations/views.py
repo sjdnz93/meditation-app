@@ -19,7 +19,7 @@ class MeditationView(APIView):
     
     #!NEED TO ADD AUTHORIZATIONS IN!!!!!!!!!!
     
-    #GET USER'S MEDITATIONS
+    #GET USER'S MEDITATIONS ===> I THINK THIS NEEDS TO BE MOVED TO USERS.VIEWS
     #endpoint: /api/profile
 
     @exceptions
@@ -46,3 +46,5 @@ class MeditationView(APIView):
         print('SAVED MEDITATION => ', meditation.data)
 
         return Response(meditation.data, status.HTTP_201_CREATED)
+    
+    #DELETE MEDITATION
