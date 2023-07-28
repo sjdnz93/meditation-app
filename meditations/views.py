@@ -17,9 +17,12 @@ User = get_user_model()
 
 class MeditationView(APIView):
     
+    #!NEED TO ADD AUTHORIZATIONS IN!!!!!!!!!!
+    
     #GET USER'S MEDITATIONS
     #endpoint: /api/profile
 
+    @exceptions
     def get(self, request, id):
         print('GET USER MEDITATIONS ROUTE HIT')
         print('USER ID => ', id)
@@ -27,7 +30,7 @@ class MeditationView(APIView):
         print('LOGGED IN USER', user)
         serialized_user = PopulatedUserSerializer(user)
         print('SERIALIZED USER => ', serialized_user)
-        return Response('GET USER MEDITATIONS ROUTE HIT')
+        return Response(serialized_user.data)
 
     
     #POST NEW MEDITATION
