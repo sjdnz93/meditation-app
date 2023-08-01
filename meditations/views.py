@@ -44,3 +44,13 @@ class MeditationDetailView(APIView):
         meditation = Meditation.objects.get(id=id)
         serialized_meditation = MeditationSerializer(meditation)
         return Response(serialized_meditation.data)
+    
+    #DELETE A SPECIFIC MEDITATION
+    #endpoint: /api/videos/<int:id>
+    @exceptions
+    def delete(self, request, id):
+        print('DELETE SINGLE MEDITATION ROUTE HIT')
+        meditation = Meditation.objects.get(id=id)
+        meditation.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
