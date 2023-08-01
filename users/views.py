@@ -25,7 +25,6 @@ class ProfileView(APIView):
     
     #GET USER'S PROFILE ===> 
     #endpoint: /api/profile/<int:id>
-
     @exceptions
     def get(self, request, id):
         print('GET USER MEDITATIONS ROUTE HIT')
@@ -38,6 +37,7 @@ class ProfileView(APIView):
     
     #UPDATE USER PROFILE
     #endpoint: /api/profile/<int:id>
+    @exceptions
     def put(self, request, id):
         print('PUT USER UPDATE ROUTE HIT')
         user = User.objects.get(id=id)

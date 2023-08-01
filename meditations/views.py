@@ -33,4 +33,11 @@ class MeditationView(APIView):
 
         return Response(meditation.data, status.HTTP_201_CREATED)
     
-    #DELETE MEDITATION
+class MeditationDetailView(APIView):
+    
+    #GET A SPECIFIC MEDITATION
+    #endpoint: /api/videos/<int:id>
+
+    def get(self, request, id):
+        print('GET SINGLE MEDITATION ROUTE HIT')
+        return Response('GET SINGLE MEDITATION ROUTE HIT')
