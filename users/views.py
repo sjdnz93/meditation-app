@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers.common import UserSerializer
+from users.serializers.populated import PopulatedUserSerializer
 from rest_framework import status
 from django.contrib.auth.hashers import check_password
 from rest_framework.exceptions import PermissionDenied
@@ -17,6 +18,24 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 # Create your views here.
+
+#!NEED TO ADD AUTHORIZATIONS IN!!!!!!!!!!
+
+class ProfileView(APIView):
+    
+    #GET USER'S PROFILE ===> 
+    #endpoint: /api/profile
+
+    @exceptions
+    def get(self, request, id):
+        print('GET USER MEDITATIONS ROUTE HIT')
+        print('USER ID => ', id)
+        user = User.objects.get(id=id)
+        print('LOGGED IN USER', user)
+        serialized_user = PopulatedUserSerializer(user)
+        print('SERIALIZED USER => ', serialized_user)
+        return Response(serialized_user.data)
+    
 
 class RegisterView(APIView):
     
