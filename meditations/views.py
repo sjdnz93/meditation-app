@@ -47,7 +47,7 @@ class MeditationDetailView(APIView):
     
     #UPDATE A SPECIFIC MEDITATION
     #endpoint: /api/videos/<int:id>
-
+    @exceptions
     def put(self, request, id):
         print('UPDATE MEDITATION ROUTE HIT')
         meditation = Meditation.objects.get(id=id)
