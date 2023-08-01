@@ -24,7 +24,7 @@ User = get_user_model()
 class ProfileView(APIView):
     
     #GET USER'S PROFILE ===> 
-    #endpoint: /api/profile
+    #endpoint: /api/profile/<int:id>
 
     @exceptions
     def get(self, request, id):
@@ -36,6 +36,15 @@ class ProfileView(APIView):
         print('SERIALIZED USER => ', serialized_user)
         return Response(serialized_user.data)
     
+    #UPDATE USER PROFILE
+    #endpoint: /api/profile/<int:id>
+    def put(self, request, id):
+        print('PUT USER UPDATE ROUTE HIT')
+        return Response('PUT USER UPDATE ROUTE HIT')
+    
+    #DELETE USER PROFILE
+    #endpoint: /api/profile/<int:id>
+    @exceptions
     def delete(self, request, id):
         user = User.objects.get(id=id)
         print('USER FOUND => ', user)
