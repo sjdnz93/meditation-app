@@ -36,6 +36,12 @@ class ProfileView(APIView):
         print('SERIALIZED USER => ', serialized_user)
         return Response(serialized_user.data)
     
+    def delete(self, request, id):
+        user = User.objects.get(id=id)
+        print('USER FOUND => ', user)
+        # user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
 
 class RegisterView(APIView):
     
