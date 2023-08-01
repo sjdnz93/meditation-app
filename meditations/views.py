@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from .serializers.common import MeditationSerializer
+from .models import Meditation
 
 
 
@@ -37,7 +38,9 @@ class MeditationDetailView(APIView):
     
     #GET A SPECIFIC MEDITATION
     #endpoint: /api/videos/<int:id>
-
+    @exceptions
     def get(self, request, id):
         print('GET SINGLE MEDITATION ROUTE HIT')
-        return Response('GET SINGLE MEDITATION ROUTE HIT')
+        meditation = Meditation.objects.get(id=id)
+        serialized_meditation = MeditationSerializer(meditation)
+        return Response(serialized_meditation.data)
