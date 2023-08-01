@@ -45,6 +45,17 @@ class MeditationDetailView(APIView):
         serialized_meditation = MeditationSerializer(meditation)
         return Response(serialized_meditation.data)
     
+    #UPDATE A SPECIFIC MEDITATION
+    #endpoint: /api/videos/<int:id>
+
+    def put(self, request, id):
+        print('UPDATE MEDITATION ROUTE HIT')
+        meditation = Meditation.objects.get(id=id)
+        serialized_meditation = MeditationSerializer(meditation, request.data, partial=True)
+        serialized_meditation.is_valid(raise_exception=True)
+        serialized_meditation.save()
+        return Response(serialized_meditation.data)
+    
     #DELETE A SPECIFIC MEDITATION
     #endpoint: /api/videos/<int:id>
     @exceptions
