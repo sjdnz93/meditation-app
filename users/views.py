@@ -40,7 +40,12 @@ class ProfileView(APIView):
     #endpoint: /api/profile/<int:id>
     def put(self, request, id):
         print('PUT USER UPDATE ROUTE HIT')
-        return Response('PUT USER UPDATE ROUTE HIT')
+        user = User.objects.get(id=id)
+        serialized_user = PopulatedUserSerializer(user, request.data, partial=True)
+        print('SERIALIZED USER UPDATED ==>', serialized_user)
+        serialized_user.is_valid(raise_exception=True)
+        serialized_user.save()
+        return Response(status=status.HTTP_200_OK)
     
     #DELETE USER PROFILE
     #endpoint: /api/profile/<int:id>
