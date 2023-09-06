@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 // !Components
 import Login from './auth/Login';
+import Register from './auth/Register';
 
 
 
@@ -14,8 +15,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Login />}></Route>
-
-
+          <Route path='/register' element={<Register />}></Route>
         </Routes>
       </BrowserRouter>
     </main>
