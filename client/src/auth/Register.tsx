@@ -1,5 +1,7 @@
 import React, { useState } from "react"
 import humps from 'humps'
+import axios from 'axios'
+import { useNavigate } from "react-router-dom"
 
 // INTERFACES
 
@@ -28,15 +30,26 @@ function Register(): JSX.Element {
 
   // EXECUTIONS
 
+  const navigate = useNavigate()
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormFields({...formFields, [e.target.name]: e.target.value })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    //console.log('FORM FIELDS STATE', formFields)
-    const vals = humps.camelizeKeys(formFields)
-    console.log('camelized state keys', vals)
+
+    try {
+    //const vals = humps.camelizeKeys(formFields)
+    
+    await axios.post('/api/auth/register/', formFields)
+    
+    navigate('/')
+
+    } catch (err) {
+      console.log('ERROR FROM REGISTER COMPONENT SUBMIT', err)
+    }
+
   }
 
 
@@ -45,10 +58,10 @@ function Register(): JSX.Element {
       <h1>Register</h1>
       <form className='infoForm' onSubmit={handleSubmit}>
         <input type='text' name='username' placeholder='Username' value={formFields.username} onChange={handleChange}></input> 
-        <input type='text' name='email' placeholder='Email' value={formFields.email} onChange={handleChange}></input> 
+        <input type='email' name='email' placeholder='Email' value={formFields.email} onChange={handleChange}></input> 
         <input type='text' name='first_name' placeholder='First name' value={formFields.first_name} onChange={handleChange}></input> 
-        <input type='text' name='password' placeholder='Password' value={formFields.password} onChange={handleChange}></input> 
-        <input type='text' name='password_confirmation' placeholder='Confirm password' value={formFields.password_confirmation} onChange={handleChange}></input>
+        <input type='password' name='password' placeholder='Password' value={formFields.password} onChange={handleChange}></input> 
+        <input type='password' name='password_confirmation' placeholder='Confirm password' value={formFields.password_confirmation} onChange={handleChange}></input>
         <button type='submit'>Register</button>   
       </form>
     </main>
