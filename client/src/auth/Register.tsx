@@ -1,6 +1,5 @@
 import React, { useState } from "react"
-
-
+import humps from 'humps'
 
 // INTERFACES
 
@@ -12,7 +11,6 @@ interface FormInfo {
   password_confirmation: string,
   videos: []
 }
-
 
 function Register(): JSX.Element {
 
@@ -34,18 +32,24 @@ function Register(): JSX.Element {
     setFormFields({...formFields, [e.target.name]: e.target.value })
   }
 
-
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    //console.log('FORM FIELDS STATE', formFields)
+    const vals = humps.camelizeKeys(formFields)
+    console.log('camelized state keys', vals)
+  }
 
 
   return (
     <main>
       <h1>Register</h1>
-      <form className='infoForm'>
+      <form className='infoForm' onSubmit={handleSubmit}>
         <input type='text' name='username' placeholder='Username' value={formFields.username} onChange={handleChange}></input> 
         <input type='text' name='email' placeholder='Email' value={formFields.email} onChange={handleChange}></input> 
         <input type='text' name='first_name' placeholder='First name' value={formFields.first_name} onChange={handleChange}></input> 
         <input type='text' name='password' placeholder='Password' value={formFields.password} onChange={handleChange}></input> 
-        <input type='text' name='password_confirmation' placeholder='Confirm password' value={formFields.password_confirmation} onChange={handleChange}></input>   
+        <input type='text' name='password_confirmation' placeholder='Confirm password' value={formFields.password_confirmation} onChange={handleChange}></input>
+        <button type='submit'>Register</button>   
       </form>
     </main>
   )
