@@ -32,9 +32,9 @@ function Login(): JSX.Element {
 
     try {
       
-    await axios.post('/api/auth/register/', formFields)
+    await axios.post('/api/auth/login/', formFields)
     
-    navigate('/')
+    navigate('/profile')
 
     } catch (err) {
 
