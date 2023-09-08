@@ -56,28 +56,16 @@ function Register(): JSX.Element {
     
     navigate('/')
 
-    } catch (err: unknown) {
+    } catch (err) {
 
       if (axios.isAxiosError(err)) {
-
         let errorMessages: requestError = err.response?.data.detail
-
-        console.log(errorMessages)
-
         let obj: string[][] = Object.entries(errorMessages)
-
-        console.log('ERROR OBJECT', obj)
-
         let errArray = []
-
         for (const [key, value] of obj) {
           errArray.push(`${key.toUpperCase().replaceAll('_', ' ')}: ${value}`)
         }
-
-        console.log(errArray)
-        
         setError(errArray)
-
       }
         
     }
