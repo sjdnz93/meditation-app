@@ -13,7 +13,14 @@ interface FormInfo {
   videos: []
 }
 
-//type Error = string
+interface requestError {
+  email?: string[],
+  first_name?: string[],
+  password?: string[],
+  password_confirmation?: string[],
+  username?: string[]
+}
+
 
 function Register(): JSX.Element {
 
@@ -29,7 +36,7 @@ function Register(): JSX.Element {
     videos: []
   })
 
-  //const [error, setError] = useState()
+  const [error, setError] = useState<requestError>({})
 
 
   // EXECUTIONS
@@ -50,16 +57,37 @@ function Register(): JSX.Element {
     navigate('/')
 
     } catch (err: unknown) {
-      console.log('ERROR FROM REGISTER COMPONENT SUBMIT', err)
+      //console.log('ERROR FROM REGISTER COMPONENT SUBMIT', err)
       if (axios.isAxiosError(err)) {
         //console.log(err.response?.data.detail?.non_field_errors)
 
-        let errorMessages = err.response?.data.detail
+        let errorMessages: requestError = err.response?.data.detail
 
         console.log(errorMessages)
 
+        //let errMessageKey = Object.keys(errorMessages)
+
+        //let errMessageString = Object.values(errorMessages)
+
+        
+
+        let obj: string[][] = Object.entries(errorMessages)
+
+        console.log('ERROR OBJECT', obj)
+
+        let errArray = []
+
+        for (const [key, value] of obj) {
+          //console.log(`${key.toUpperCase().replaceAll('_', ' ')}: ${value}`)
+          errArray.push(`${key.toUpperCase().replaceAll('_', ' ')}: ${value}`)
+        }
+
+        console.log(errArray)
+        
+        //setError(hello)
+
       }
-      //setError(err.response.data.message)
+        
     }
 
   }
@@ -76,6 +104,10 @@ function Register(): JSX.Element {
         <input type='password' name='password_confirmation' placeholder='Confirm password' value={formFields.password_confirmation} onChange={handleChange}></input>
         <button type='submit'>Register</button>   
       </form>
+      {/* {error && error.map<string[]>(item => (
+        <p>{item}</p>
+      ))} */}
+      
     </main>
   )
 }
