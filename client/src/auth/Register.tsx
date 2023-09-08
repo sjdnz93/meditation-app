@@ -36,7 +36,7 @@ function Register(): JSX.Element {
     videos: []
   })
 
-  const [error, setError] = useState<requestError>({})
+  const [error, setError] = useState<string[]>([])
 
 
   // EXECUTIONS
@@ -57,19 +57,12 @@ function Register(): JSX.Element {
     navigate('/')
 
     } catch (err: unknown) {
-      //console.log('ERROR FROM REGISTER COMPONENT SUBMIT', err)
+
       if (axios.isAxiosError(err)) {
-        //console.log(err.response?.data.detail?.non_field_errors)
 
         let errorMessages: requestError = err.response?.data.detail
 
         console.log(errorMessages)
-
-        //let errMessageKey = Object.keys(errorMessages)
-
-        //let errMessageString = Object.values(errorMessages)
-
-        
 
         let obj: string[][] = Object.entries(errorMessages)
 
@@ -78,13 +71,12 @@ function Register(): JSX.Element {
         let errArray = []
 
         for (const [key, value] of obj) {
-          //console.log(`${key.toUpperCase().replaceAll('_', ' ')}: ${value}`)
           errArray.push(`${key.toUpperCase().replaceAll('_', ' ')}: ${value}`)
         }
 
         console.log(errArray)
         
-        //setError(hello)
+        setError(errArray)
 
       }
         
@@ -104,9 +96,9 @@ function Register(): JSX.Element {
         <input type='password' name='password_confirmation' placeholder='Confirm password' value={formFields.password_confirmation} onChange={handleChange}></input>
         <button type='submit'>Register</button>   
       </form>
-      {/* {error && error.map<string[]>(item => (
-        <p>{item}</p>
-      ))} */}
+      {error && error.map((item, index) => (
+        <p key={index}>{item}</p>
+      ))}
       
     </main>
   )
