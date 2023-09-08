@@ -2,21 +2,19 @@ import React, { useState } from "react"
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 
-// INTERFACES
+import { LoginFormInfo, LoginRequestError } from "../interfaces/Interfaces"
 
-interface FormInfo {
-  email: string,
-  password: string,
-}
 
 function Login(): JSX.Element {
 
   //? STATE
 
-  const [formFields, setFormFields] = useState<FormInfo>({
+  const [formFields, setFormFields] = useState<LoginFormInfo>({
     email: '',
     password: ''
   })
+
+  const [error, setError] = useState<string[] | string>([])
 
 
   // EXECUTIONS
@@ -38,18 +36,11 @@ function Login(): JSX.Element {
 
     } catch (err) {
 
-      console.log(err)
+      if (axios.isAxiosError(err)) {
+        let errorMessages: LoginRequestError = err.response?.data.detail
+        setError(errorMessages)
+      }
 
-      // if (axios.isAxiosError(err)) {
-      //   let errorMessages: requestError = err.response?.data.detail
-      //   let obj: string[][] = Object.entries(errorMessages)
-      //   let errArray = []
-      //   for (const [key, value] of obj) {
-      //     errArray.push(`${key.toUpperCase().replaceAll('_', ' ')}: ${value}`)
-      //   }
-      //   setError(errArray)
-      // }
-        
     }
 
   }
@@ -62,6 +53,7 @@ function Login(): JSX.Element {
         <input type='password' name='password' placeholder='Password' value={formFields.password} onChange={handleChange}></input> 
         <button type='submit'>Login</button>   
       </form>
+      {error && <p>{error}</p>}
     </main>
   )
 }

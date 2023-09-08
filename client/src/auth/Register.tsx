@@ -2,24 +2,7 @@ import React, { useState } from "react"
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 
-// INTERFACES
-
-interface FormInfo {
-  username: string,
-  email: string,
-  first_name: string,
-  password: string,
-  password_confirmation: string,
-  videos: []
-}
-
-interface requestError {
-  email?: string[],
-  first_name?: string[],
-  password?: string[],
-  password_confirmation?: string[],
-  username?: string[]
-}
+import { RegisterFormInfo, RegisterRequestError } from '../interfaces/Interfaces'
 
 
 function Register(): JSX.Element {
@@ -27,7 +10,7 @@ function Register(): JSX.Element {
 
   //? STATE
 
-  const [formFields, setFormFields] = useState<FormInfo>({
+  const [formFields, setFormFields] = useState<RegisterFormInfo>({
     username: '',
     email: '',
     first_name: '',
@@ -44,30 +27,41 @@ function Register(): JSX.Element {
   const navigate = useNavigate()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormFields({...formFields, [e.target.name]: e.target.value })
+    setFormFields({ ...formFields, [e.target.name]: e.target.value })
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
     try {
-      
-    await axios.post('/api/auth/register/', formFields)
-    
-    navigate('/')
+
+      await axios.post('/api/auth/register/', formFields)
+
+      navigate('/')
 
     } catch (err) {
 
       if (axios.isAxiosError(err)) {
-        let errorMessages: requestError = err.response?.data.detail
+        let errorMessages: RegisterRequestError = err.response?.data.detail
         let obj: string[][] = Object.entries(errorMessages)
-        let errArray = []
+        let errArray: string[] = []
+
         for (const [key, value] of obj) {
           errArray.push(`${key.toUpperCase().replaceAll('_', ' ')}: ${value}`)
         }
-        setError(errArray)
+        console.log(errArray)
+        errArray.forEach(item => {
+          if (item.includes('EMAIL: user with this email already exists.')) {
+            errArray = []
+            errArray.push('Unauthorized')
+            setError(errArray)
+          } else {
+            setError(errArray)
+          }
+        })
+
       }
-        
+
     }
 
   }
@@ -77,17 +71,17 @@ function Register(): JSX.Element {
     <main>
       <h1>Register</h1>
       <form className='infoForm' onSubmit={handleSubmit}>
-        <input type='text' name='username' placeholder='Username' value={formFields.username} onChange={handleChange}></input> 
-        <input type='email' name='email' placeholder='Email' value={formFields.email} onChange={handleChange}></input> 
-        <input type='text' name='first_name' placeholder='First name' value={formFields.first_name} onChange={handleChange}></input> 
-        <input type='password' name='password' placeholder='Password' value={formFields.password} onChange={handleChange}></input> 
+        <input type='text' name='username' placeholder='Username' value={formFields.username} onChange={handleChange}></input>
+        <input type='email' name='email' placeholder='Email' value={formFields.email} onChange={handleChange}></input>
+        <input type='text' name='first_name' placeholder='First name' value={formFields.first_name} onChange={handleChange}></input>
+        <input type='password' name='password' placeholder='Password' value={formFields.password} onChange={handleChange}></input>
         <input type='password' name='password_confirmation' placeholder='Confirm password' value={formFields.password_confirmation} onChange={handleChange}></input>
-        <button type='submit'>Register</button>   
+        <button type='submit'>Register</button>
       </form>
       {error && error.map((item, index) => (
         <p key={index}>{item}</p>
       ))}
-      
+
     </main>
   )
 }
