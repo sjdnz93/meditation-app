@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import humps from 'humps'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 
@@ -13,6 +12,8 @@ interface FormInfo {
   password_confirmation: string,
   videos: []
 }
+
+//type Error = string
 
 function Register(): JSX.Element {
 
@@ -28,6 +29,9 @@ function Register(): JSX.Element {
     videos: []
   })
 
+  //const [error, setError] = useState()
+
+
   // EXECUTIONS
 
   const navigate = useNavigate()
@@ -40,14 +44,22 @@ function Register(): JSX.Element {
     e.preventDefault()
 
     try {
-    //const vals = humps.camelizeKeys(formFields)
-    
+      
     await axios.post('/api/auth/register/', formFields)
     
     navigate('/')
 
-    } catch (err) {
+    } catch (err: unknown) {
       console.log('ERROR FROM REGISTER COMPONENT SUBMIT', err)
+      if (axios.isAxiosError(err)) {
+        //console.log(err.response?.data.detail?.non_field_errors)
+
+        let errorMessages = err.response?.data.detail
+
+        console.log(errorMessages)
+
+      }
+      //setError(err.response.data.message)
     }
 
   }
