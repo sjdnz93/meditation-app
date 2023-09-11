@@ -78,6 +78,7 @@ function Register(): JSX.Element {
         <input type='password' name='password_confirmation' placeholder='Confirm password' value={formFields.password_confirmation} onChange={handleChange}></input>
         <button type='submit'>Register</button>
       </form>
+      {error.length > 0 && <h3>Register attempt failed</h3>}
       {error && error.map((item, index) => (
         <p key={index}>{item}</p>
       ))}
