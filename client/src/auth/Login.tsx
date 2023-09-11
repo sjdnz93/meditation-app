@@ -53,6 +53,7 @@ function Login(): JSX.Element {
         <input type='password' name='password' placeholder='Password' value={formFields.password} onChange={handleChange}></input> 
         <button type='submit'>Login</button>   
       </form>
+      {error.length > 0 && <h3>Login attempt failed</h3>}
       {error && <p>{error}</p>}
     </main>
   )
