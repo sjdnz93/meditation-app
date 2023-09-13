@@ -27,7 +27,8 @@ export interface UserProfile {
   email: string,
   first_name: string,
   username: string,
-  videos?: Video[]
+  streak_count: number,
+  videos: Video[]
 }
 
 export interface Video {
