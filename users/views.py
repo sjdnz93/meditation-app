@@ -7,6 +7,7 @@ from rest_framework import status
 from django.contrib.auth.hashers import check_password
 from rest_framework.exceptions import PermissionDenied
 from django.conf import settings
+from rest_framework.permissions import IsAuthenticated
 
 import jwt
 
@@ -22,6 +23,7 @@ User = get_user_model()
 #!NEED TO ADD AUTHORIZATIONS IN!!!!!!!!!!
 
 class ProfileView(APIView):
+    #permission_classes = (IsAuthenticated)
     
     #GET USER'S PROFILE ===> 
     #endpoint: /api/profile/<int:id>

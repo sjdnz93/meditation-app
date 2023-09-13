@@ -30,8 +30,10 @@ function Login(): JSX.Element {
 
     try {
       
-    await axios.post('/api/auth/login/', formFields)
-    
+    const { data } = await axios.post('/api/auth/login/', formFields)
+    localStorage.setItem('MEDITATION-LOGIN-TOKEN', data.token)
+    console.log('TOKEN', data.token)
+    axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
     navigate('/profile')
 
     } catch (err) {
