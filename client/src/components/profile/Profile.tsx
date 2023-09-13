@@ -2,6 +2,8 @@ import { getPayload, isAuthenticated } from "../helpers/Auth"
 import { useEffect, useState } from "react"
 import axios from "axios"
 
+import { UserProfile } from "../../interfaces/Interfaces"
+
 
 function Profile(): JSX.Element {
 
@@ -11,13 +13,14 @@ function Profile(): JSX.Element {
   //console.log('EXPIRY DATE FOR LOGIN SESSION', exp)
 
 
-  const [userProfile, setUserProfile] = useState()
+  const [userProfile, setUserProfile] = useState<UserProfile>()
+  const [error, setError] = useState<string>()
 
   useEffect(() => {
 
     const getProfile = async () => {
 
-      if (!authenticated) return
+      if (!authenticated) return setError('You need to login')
 
       try {
 
@@ -25,12 +28,9 @@ function Profile(): JSX.Element {
         console.log('LOGGED USER DATA', data)
         setUserProfile(data)
 
-
-
-
-
-      } catch (err) {
-
+      } catch (err: any) {
+        console.log(err)
+        setError(err.message)
       }
     }
 
@@ -45,7 +45,8 @@ function Profile(): JSX.Element {
 
   return (
     <main>
-      <h1>PROFILE PAGE</h1>
+      {userProfile && <h1>Welcome, {userProfile.first_name}</h1>}
+      
     </main>
   )
 
