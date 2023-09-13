@@ -5,6 +5,6 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     email = models.CharField(max_length=50, unique=True)
     first_name = models.CharField(max_length=50)
-    streak_count = models.CharField(blank=True)
+    streak_count = models.IntegerField(default=0)
 
     
