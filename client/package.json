@@ -12,6 +12,8 @@
     "@types/react-dom": "^18.2.7",
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.5.0",
+    "buffer": "^6.0.3",
+    "Buffer": "^0.0.0",
     "humps": "^2.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

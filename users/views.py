@@ -98,7 +98,7 @@ class LoginView(APIView):
 
         print('DT -> ', int(dt.strftime('%s')))
 
-        token = jwt.encode({ 'sub': user_to_login.id, 'sub': int(dt.strftime('%s')) }, settings.SECRET_KEY, algorithm='HS256' )
+        token = jwt.encode({ 'sub': user_to_login.id, 'exp': int(dt.strftime('%s')) }, settings.SECRET_KEY, algorithm='HS256' )
 
         print('TOKEN ->', token)
 

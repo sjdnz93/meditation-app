@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 // !Components
 import Login from './auth/Login';
 import Register from './auth/Register';
-import Profile from './components/Profile';
+import Profile from './components/profile/Profile';
 
 
 
