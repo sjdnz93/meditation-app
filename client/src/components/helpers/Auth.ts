@@ -1,8 +1,9 @@
 import { Buffer } from 'buffer'
+import { Payload } from './Interfaces'
 
 const tokenName = 'MEDITATION-LOGIN-TOKEN'
 
-export const getPayload = () => {
+export const getPayload = (): Payload | void => {
   const token = localStorage.getItem(tokenName)
   //console.log('TOKEN FROM STORAGE', token)
   if (!token) return
@@ -10,8 +11,8 @@ export const getPayload = () => {
   //console.log('SPLIT TOKEN', splitToken)
   const payloadString = splitToken[1]
   //console.log('PAYLOAD STRING', payloadString)
-  const value = JSON.parse(Buffer.from(payloadString, 'base64').toString())
-  //console.log('VALUE', value)
+  const value: Payload = JSON.parse(Buffer.from(payloadString, 'base64').toString())
+  console.log('VALUE', value)
   return value
 }
 

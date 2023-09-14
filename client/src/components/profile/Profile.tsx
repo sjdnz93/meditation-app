@@ -1,47 +1,48 @@
 import { getPayload, isAuthenticated } from "../helpers/Auth"
 import { useEffect, useState } from "react"
-import axios from "axios"
+import axios, { AxiosResponse } from "axios"
 
 import { UserProfile } from "../../interfaces/Interfaces"
+import { Payload } from "../helpers/Interfaces"
 
 
 function Profile(): JSX.Element {
 
-  const { sub } = getPayload()
-  const authenticated: boolean = isAuthenticated()
+  const payload = getPayload()
+const { sub } = payload!
+  const authenticated = isAuthenticated()
   //console.log('PAYLOAD FROM FUNCTION CALL', sub)
   //console.log('EXPIRY DATE FOR LOGIN SESSION', exp)
 
 
   const [userProfile, setUserProfile] = useState<UserProfile>()
-  const [error, setError] = useState<string>()
+  const [error, setError] = useState<string>('')
 
   useEffect(() => {
+    
 
     const getProfile = async () => {
 
-      if (!authenticated) return setError('You need to login')
-
       try {
 
-        const { data } = await axios.get(`/api/profile/${sub}`)
+        const { data }: AxiosResponse<UserProfile> = await axios.get(`/api/profile/${sub}`)
         console.log('LOGGED USER DATA', data)
         setUserProfile(data)
 
       } catch (err: any) {
         console.log(err)
-        setError(err.message)
+
+        if (axios.isAxiosError(err)) {
+          setError(err.message)
+        }
+
+        
       }
     }
 
     getProfile()
 
-  }, [sub, authenticated])
-
-
-
-
-
+  }, [sub])
 
   return (
     <main>
