@@ -1,4 +1,5 @@
-import { isAuthenticated } from "../helpers/Auth"
+import { isAuthenticated, removeToken } from "../helpers/Auth"
+import { useNavigate } from "react-router-dom"
 
 
 
@@ -6,11 +7,14 @@ import { isAuthenticated } from "../helpers/Auth"
 
 const Footer = (): JSX.Element => {
 
+  const navigate = useNavigate()
+
 
   const handleLogout = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault()
     console.log('Button clicked')
-
+    removeToken()
+    navigate('/')
   }
 
   return (

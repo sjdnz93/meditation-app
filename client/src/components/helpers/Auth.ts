@@ -23,3 +23,7 @@ export const isAuthenticated = (): boolean => {
   return currentTime < payload.exp
 
 }
+
+export const removeToken = (): void => {
+  localStorage.removeItem(tokenName)
+}
