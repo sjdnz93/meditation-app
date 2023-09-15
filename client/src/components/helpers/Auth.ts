@@ -3,10 +3,10 @@ import { Payload } from './Interfaces'
 
 const tokenName = 'MEDITATION-LOGIN-TOKEN'
 
-export const getPayload = (): Payload | void => {
+export const getPayload = (): Payload | string => {
   const token = localStorage.getItem(tokenName)
   //console.log('TOKEN FROM STORAGE', token)
-  if (!token) return
+  if (!token) return 'ERROR'
   const splitToken = token.split('.')
   //console.log('SPLIT TOKEN', splitToken)
   const payloadString = splitToken[1]
@@ -18,7 +18,7 @@ export const getPayload = (): Payload | void => {
 
 export const isAuthenticated = (): boolean => {
   const payload = getPayload()
-  if (!payload) return false
+  if (typeof payload === 'string') return false
   const currentTime = Date.now() / 1000
   return currentTime < payload.exp
 

@@ -2,9 +2,6 @@ import { isAuthenticated, removeToken } from "../helpers/Auth"
 import { useNavigate } from "react-router-dom"
 
 
-
-
-
 const Footer = (): JSX.Element => {
 
   const navigate = useNavigate()
@@ -22,7 +19,7 @@ const Footer = (): JSX.Element => {
     { isAuthenticated() ? 
       <button onClick={handleLogout}>Sign out</button>
       :
-      <p>hello</p>
+      <p>Welcome to the Meditation App</p>
     }
     </footer>
   )

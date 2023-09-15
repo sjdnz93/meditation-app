@@ -13,7 +13,6 @@ import Footer from './components/footer/Footer';
 function App() {
   return (
     <main>
-      <h1>Meditation App</h1>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Login />}></Route>
