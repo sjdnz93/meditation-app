@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Login from './auth/Login';
 import Register from './auth/Register';
 import Profile from './components/profile/Profile';
+import Footer from './components/footer/Footer';
 
 
 
@@ -19,6 +20,7 @@ function App() {
           <Route path='/register' element={<Register />}></Route>
           <Route path='/profile' element={<Profile />}></Route>
         </Routes>
+          <Footer />
       </BrowserRouter>
     </main>
   );
