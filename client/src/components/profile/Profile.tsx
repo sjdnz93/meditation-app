@@ -4,13 +4,16 @@ import axios, { AxiosResponse } from "axios"
 import { Link } from "react-router-dom"
 
 import { UserProfile } from "../../interfaces/Interfaces"
+import Error from "../error/Error"
+
+//import spinnerGIF from '../../images/spinner.gif' 
 
 
 function Profile(): JSX.Element {
 
   const payload = getPayload()
   const { sub } = payload
-  
+
 
 
 
@@ -52,7 +55,7 @@ function Profile(): JSX.Element {
   }, [sub])
 
   return (
-    <body>
+    <main>
       {userProfile && userProfile.email !== '' ?
         <>
           <h1>Welcome, {userProfile.first_name}</h1>
@@ -79,13 +82,21 @@ function Profile(): JSX.Element {
         </>
         :
         <>
-          <h1>Uh-oh, something went wrong!</h1>
-          <p>{error}</p>
-          <p>Click <Link to='/'>here</Link> to return to the login page</p>
+          {error ?
+          <>
+          <Error error={error}/>
+          </>
+            :
+            <div>
+              <img src='../../images/spinner.gif' alt="spinner gif for loading screen" />
+            </div>
+            
+          }
+
         </>
       }
 
-    </body>
+    </main>
   )
 
 }
