@@ -1,8 +1,9 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 
 import { LoginFormInfo, LoginRequestError } from './Interfaces'
+import { isAuthenticated } from "../components/helpers/Auth"
 
 
 function Login(): JSX.Element {
@@ -20,6 +21,13 @@ function Login(): JSX.Element {
   // EXECUTIONS
 
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (isAuthenticated()) {
+      console.log('attempting to navigate')
+      navigate('/profile')
+    }
+  })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormFields({...formFields, [e.target.name]: e.target.value })
