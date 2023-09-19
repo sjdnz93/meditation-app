@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 
-import { RegisterFormInfo, RegisterRequestError } from '../interfaces/Interfaces'
+import { RegisterFormInfo, RegisterRequestError } from './Interfaces'
 
 
 function Register(): JSX.Element {

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import axios, { AxiosResponse } from "axios"
 import { Link } from "react-router-dom"
 
-import { UserProfile } from "../../interfaces/Interfaces"
+import { UserProfile } from "./Interfaces"
 import Error from "../error/Error"
 
 //import spinnerGIF from '../../images/spinner.gif' 
@@ -84,7 +84,7 @@ function Profile(): JSX.Element {
         <>
           {error ?
           <>
-          <Error error={error}/>
+            <Error error={error}/>
           </>
             :
             <div>

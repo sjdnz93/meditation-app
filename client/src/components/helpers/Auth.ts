@@ -6,7 +6,7 @@ const tokenName = 'MEDITATION-LOGIN-TOKEN'
 export const getPayload = (): Payload | string => {
   const token = localStorage.getItem(tokenName)
   //console.log('TOKEN FROM STORAGE', token)
-  if (!token) return 'ERROR'
+  if (!token) return ''
   const splitToken = token.split('.')
   //console.log('SPLIT TOKEN', splitToken)
   const payloadString = splitToken[1]

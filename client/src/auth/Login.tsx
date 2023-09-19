@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 
-import { LoginFormInfo, LoginRequestError } from "../interfaces/Interfaces"
+import { LoginFormInfo, LoginRequestError } from './Interfaces'
 
 
 function Login(): JSX.Element {
