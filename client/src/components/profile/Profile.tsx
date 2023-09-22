@@ -6,7 +6,7 @@ import { Link } from "react-router-dom"
 import { UserProfile } from "./Interfaces"
 import Error from "../error/Error"
 
-//import spinnerGIF from '../../images/spinner.gif' 
+const spinnerGIF = require('../../images/spinner.gif')  
 
 
 function Profile(): JSX.Element {
@@ -61,6 +61,9 @@ function Profile(): JSX.Element {
           <h1>Welcome, {userProfile.first_name}</h1>
           <h2>You've completed {userProfile.streak_count} meditations</h2>
           <div>
+            <div>
+              <p>Click to add meditation videos</p>
+            </div>
             {userProfile.videos!.length > 0 && userProfile.videos?.map(video => (
               <div key={video.id}>
                 <p>{video.title}</p>
@@ -73,9 +76,6 @@ function Profile(): JSX.Element {
             )
 
             }
-            <div>
-              <p>Click to add meditation videos</p>
-            </div>
 
           </div>
 
@@ -83,14 +83,14 @@ function Profile(): JSX.Element {
         :
         <>
           {error ?
-          <>
-            <Error error={error}/>
-          </>
+            <>
+              <Error error={error} />
+            </>
             :
             <div>
-              <img src='../../images/spinner.gif' alt="spinner gif for loading screen" />
+              <img src={spinnerGIF} alt="spinner gif for loading screen" />
             </div>
-            
+
           }
 
         </>
