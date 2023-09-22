@@ -1,3 +1,4 @@
+import { url } from 'inspector'
 import { useState } from 'react'
 
 
@@ -5,6 +6,9 @@ import { useState } from 'react'
 function AddVideo(): JSX.Element {
 
   const [urlField, setURLField] = useState('')
+  const [videoUniqueID, setVideoUniqueID] = useState('')
+
+  const APIKey = process.env.REACT_APP_YT_API_KEY
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,8 +18,12 @@ function AddVideo(): JSX.Element {
 
   const processLink = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('input form state', urlField)
-  
+    const splitURL = urlField.split('=')
+    const vidID = splitURL[1]
+    console.log(vidID)
+    setVideoUniqueID(vidID) 
+    console.log('API KEY', APIKey)
+    
   }
 
   return (
