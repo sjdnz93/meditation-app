@@ -61,9 +61,9 @@ function Profile(): JSX.Element {
           <h1>Welcome, {userProfile.first_name}</h1>
           <h2>You've completed {userProfile.streak_count} meditations</h2>
           <div>
-            <div>
-              <p>Click to add meditation videos</p>
-            </div>
+            <Link to={'/add-video'}>
+                Click to add meditation videos
+            </Link>
             {userProfile.videos!.length > 0 && userProfile.videos?.map(video => (
               <div key={video.id}>
                 <p>{video.title}</p>
