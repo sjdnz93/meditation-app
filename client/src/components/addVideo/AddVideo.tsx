@@ -1,5 +1,6 @@
 import { url } from 'inspector'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 
 
@@ -23,8 +24,28 @@ function AddVideo(): JSX.Element {
     console.log(vidID)
     setVideoUniqueID(vidID) 
     console.log('API KEY', APIKey)
-    
+
   }
+
+
+
+  useEffect(() => {
+
+    const getVideo = async () => {
+      try {
+        const { data } = await axios.get(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet&id=${videoUniqueID}&key=${APIKey}&maxResults=1`)
+        console.log('YT RESPONSE', data)
+  
+      } catch (err) {
+        console.log(err)
+      }
+    }
+
+    if (videoUniqueID && APIKey) {
+      getVideo()
+    }
+
+  }, [videoUniqueID, APIKey])
 
   return (
     <main>
