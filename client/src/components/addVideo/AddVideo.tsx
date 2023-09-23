@@ -1,6 +1,7 @@
-import { url } from 'inspector'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
+
+import { YTResponse } from './Interfaces'
 
 
 
@@ -33,7 +34,7 @@ function AddVideo(): JSX.Element {
 
     const getVideo = async () => {
       try {
-        const { data } = await axios.get(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet&id=${videoUniqueID}&key=${APIKey}&maxResults=1`)
+        const { data }: AxiosResponse<YTResponse> = await axios.get(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet&id=${videoUniqueID}&key=${APIKey}&maxResults=1`)
         console.log('YT RESPONSE', data)
   
       } catch (err) {
