@@ -14,18 +14,7 @@ function Profile(): JSX.Element {
   const payload = getPayload()
   const { sub } = payload
 
-
-
-
-
-  const [userProfile, setUserProfile] = useState<UserProfile>({
-    id: 0,
-    email: '',
-    first_name: '',
-    username: '',
-    streak_count: 0,
-    videos: []
-  })
+  const [userProfile, setUserProfile] = useState<UserProfile>()
   const [error, setError] = useState<string>('')
 
   useEffect(() => {
@@ -58,7 +47,7 @@ function Profile(): JSX.Element {
     <main>
       {userProfile && userProfile.email !== '' ?
         <>
-          <h1>Welcome, {userProfile.first_name}</h1>
+          <h1>Welcome, {userProfile.username}</h1>
           <h2>You've completed {userProfile.streak_count} meditations</h2>
           <div>
             <Link to={'/add-video'}>
