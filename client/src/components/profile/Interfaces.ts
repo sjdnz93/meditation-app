@@ -7,7 +7,7 @@ export interface UserProfile {
   videos: Video[]
 }
 
-interface Video {
+export interface Video {
   id: number, 
   title: string,
   artist: string,

@@ -24,13 +24,16 @@ class MeditationView(APIView):
     #endpoint: /api/add/
     @exceptions
     def post(self, request):
-        print('ADD MEDITATION ROUTE HIT')
-        print('REQUEST DATA => ', request.data)
+        # print('ADD MEDITATION ROUTE HIT')
+        # print('REQUEST => ', request)
+        # print('REQUEST DATA => ', request.data)
+        print('REQUEST USER => ', request.user.id)
+        request.data['owner'] = request.user.id
         meditation = MeditationSerializer(data=request.data)
-        print('MEDITATION', meditation)
+        # print('MEDITATION', meditation)
         meditation.is_valid(raise_exception=True)
         meditation.save()
-        print('SAVED MEDITATION => ', meditation.data)
+        # print('SAVED MEDITATION => ', meditation.data)
 
         return Response(meditation.data, status.HTTP_201_CREATED)
     
