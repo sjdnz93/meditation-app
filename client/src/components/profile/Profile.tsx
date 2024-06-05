@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"
 
 import { UserProfile, Video } from "./Interfaces"
 import Error from "../error/Error"
+import MediaPlayerWrapper from "../mediaPlayerWrapper/MediaPlayerWrapper"
 
 const spinnerGIF = require('../../images/spinner.gif')
 
@@ -19,6 +20,8 @@ function Profile(): JSX.Element {
   const [updatedVideos, setUpdatedVideos] = useState<Video[]>([])
   const [radioButton, setRadioButton] = useState<string>('All')
   const [filteredVideos, setFilteredVideos] = useState<Video[]>([])
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [url, setUrl] = useState<string>('')
 
   useEffect(() => {
     const getProfile = async () => {
@@ -68,6 +71,17 @@ function Profile(): JSX.Element {
     }
   };
 
+  const openModal = (e: React.MouseEvent<HTMLDivElement>, url: string) => {
+    e.preventDefault()
+    setUrl(url)
+    setIsOpen(true)
+  }
+
+  const closeModal = () => {
+    setIsOpen(false)
+  }
+
+
   return (
     <main>
       {userProfile && userProfile.email !== '' ?
@@ -78,74 +92,72 @@ function Profile(): JSX.Element {
             <Link to={'/add-video'}>
               Click to add meditation videos
             </Link>
+            {/* <button onClick={openModal}>OPEN THE FRICKEN MODAL</button> */}
+
             <div>
               <label>
-                <input 
-                  type="radio" 
+                <input
+                  type="radio"
                   value="All"
                   checked={radioButton === 'All'}
                   onChange={handleRadioChange}
-                  />
-                  All
+                />
+                All
               </label>
 
               <label>
-                <input 
-                  type="radio" 
+                <input
+                  type="radio"
                   value="Guided"
                   checked={radioButton === 'Guided'}
                   onChange={handleRadioChange}
-                  />
-                  Guided
+                />
+                Guided
               </label>
 
               <label>
-                <input 
-                  type="radio" 
+                <input
+                  type="radio"
                   value="Ambient"
                   checked={radioButton === 'Ambient'}
                   onChange={handleRadioChange}
-                  />
-                  Ambient
+                />
+                Ambient
               </label>
 
               <label>
-                <input 
-                  type="radio" 
+                <input
+                  type="radio"
                   value="Body scan"
                   checked={radioButton === 'Body scan'}
                   onChange={handleRadioChange}
-                  />
-                  Body scan
+                />
+                Body scan
               </label>
 
               <label>
-                <input 
-                  type="radio" 
+                <input
+                  type="radio"
                   value="Sleep"
                   checked={radioButton === 'Sleep'}
                   onChange={handleRadioChange}
-                  />
-                  Sleep
+                />
+                Sleep
               </label>
             </div>
 
             {filteredVideos!.length > 0 && filteredVideos?.map(video => (
-              <div key={video.id}>
+              <div key={video.id} onClick={(e) => openModal(e, video.url)}>
                 <p>{video.title}</p>
                 <p>{video.artist}</p>
                 <p>Length: {video.length}</p>
                 <img src={video.thumbnail} alt={`Thumbnail for the video titled ${video.title} by ${video.artist}`} />
                 <button onClick={(e) => handleDelete(e, video.id)}>Remove</button>
               </div>
-            )
-
-            )
-
+            ))
             }
-
           </div>
-
+          {isOpen && <MediaPlayerWrapper closeModal={closeModal} url={url} />}
         </>
         :
         <>
