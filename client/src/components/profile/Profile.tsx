@@ -42,16 +42,21 @@ function Profile(): JSX.Element {
 
   const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>, id: number) => {
     e.preventDefault()
+    setIsOpen(false)
     console.log('ID NUMBER FOR REMOVAL', id)
     try {
       const res = window.confirm('Are you sure you want to delete this video?')
+      
       if (res) {
         await axios.delete(`/api/videos/${id}`)
         const { data }: AxiosResponse<UserProfile> = await axios.get(`/api/profile/${sub}`)
+        setIsOpen(false)
         setUpdatedVideos(data.videos!)
+        
       }
     } catch (err) {
       console.log(err)
+      setIsOpen(false)
       return err
     }
   }
@@ -92,7 +97,6 @@ function Profile(): JSX.Element {
             <Link to={'/add-video'}>
               Click to add meditation videos
             </Link>
-            {/* <button onClick={openModal}>OPEN THE FRICKEN MODAL</button> */}
 
             <div>
               <label>
@@ -146,8 +150,10 @@ function Profile(): JSX.Element {
               </label>
             </div>
 
+            {isOpen && <MediaPlayerWrapper closeModal={closeModal} url={url} />}
+
             {filteredVideos!.length > 0 && filteredVideos?.map(video => (
-              <div key={video.id} onClick={(e) => openModal(e, video.url)}>
+              <div key={video.id} onClick={(e) => openModal(e, video.url)} className='video-tile'>
                 <p>{video.title}</p>
                 <p>{video.artist}</p>
                 <p>Length: {video.length}</p>
@@ -157,7 +163,7 @@ function Profile(): JSX.Element {
             ))
             }
           </div>
-          {isOpen && <MediaPlayerWrapper closeModal={closeModal} url={url} />}
+          
         </>
         :
         <>

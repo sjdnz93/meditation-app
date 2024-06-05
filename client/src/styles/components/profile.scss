@@ -1,0 +1,21 @@
+.video-tile {
+  // display: flex;
+  // flex-direction: column;
+  // align-items: center;
+  // justify-content: center;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+  width: 200px;
+
+  img {
+    width: 90%;
+  }
+}
+
+.video-tile:hover {
+  cursor: pointer;
+  background-color: #eee;
+}

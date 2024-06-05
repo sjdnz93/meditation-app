@@ -1,5 +1,8 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import ReactPlayer from "react-player"
+
+
+const spinnerGIF = require('../../images/spinner.gif')
 
 type MediaPlayerWrapperProps = {
   closeModal: () => void,
@@ -7,12 +10,34 @@ type MediaPlayerWrapperProps = {
 }
 
 function MediaPlayerWrapper({ closeModal, url }: MediaPlayerWrapperProps): JSX.Element {
+
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    setIsLoading(false)
+  }, [])
+
   return (
-    <div>
-      <h1>MediaPlayerWrapper</h1>
-      <button onClick={closeModal}>CLOSE THE FRICKEN MODAL</button>
-      <ReactPlayer url={url}/>
-    </div>
+    <section>
+      {isLoading ?
+        <div className='modal-backdrop'>
+          <div className='modal-container'>
+            <img src={spinnerGIF} alt="loading spinner" />
+          </div>
+        </div>
+        :
+        <div className='modal-backdrop'>
+          <div className='modal-container'>
+            <h1>MediaPlayerWrapper</h1>
+            <button onClick={closeModal}>CLOSE THE FRICKEN MODAL</button>
+            <ReactPlayer
+              playing={false}
+              url={url}
+            />
+          </div>
+        </div>
+      }
+    </section>
   )
 }
 
