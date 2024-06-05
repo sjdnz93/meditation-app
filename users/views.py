@@ -94,7 +94,7 @@ class LoginView(APIView):
             print('PASSWORDS DONT MATCH')
             raise PermissionDenied('Unauthorized')
       
-        dt = datetime.now() + timedelta(days=7)
+        dt = datetime.now() + timedelta(hours=2)
 
         print('DT -> ', int(dt.strftime('%s')))
 

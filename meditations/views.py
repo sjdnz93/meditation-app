@@ -28,7 +28,7 @@ class MeditationView(APIView):
         # print('REQUEST => ', request)
         # print('REQUEST DATA => ', request.data)
         print('REQUEST USER => ', request.user.id)
-        request.data['owner'] = request.user.id
+        #request.data['owner'] = request.user.id
         meditation = MeditationSerializer(data=request.data)
         # print('MEDITATION', meditation)
         meditation.is_valid(raise_exception=True)

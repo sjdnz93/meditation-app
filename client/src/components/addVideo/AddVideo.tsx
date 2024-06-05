@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { getPayload } from '../helpers/Auth';
 
 function AddVideo(): JSX.Element {
 
   const [urlField, setURLField] = useState('');
   const [apiKey, setApiKey] = useState('');
+
+  const payload = getPayload()
+  const { sub } = payload
 
   const [videoInfoFields, setVideoInfoFields] = useState({
     title: '',
@@ -14,7 +18,7 @@ function AddVideo(): JSX.Element {
     length: '',
     thumbnail: '',
     url: '',
-    owner: 0
+    owner: sub
   })
 
   useEffect(() => {

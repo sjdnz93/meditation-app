@@ -134,7 +134,7 @@ function Profile(): JSX.Element {
               <div key={video.id}>
                 <p>{video.title}</p>
                 <p>{video.artist}</p>
-                <p>{video.length}</p>
+                <p>Length: {video.length}</p>
                 <img src={video.thumbnail} alt={`Thumbnail for the video titled ${video.title} by ${video.artist}`} />
                 <button onClick={(e) => handleDelete(e, video.id)}>Remove</button>
               </div>
