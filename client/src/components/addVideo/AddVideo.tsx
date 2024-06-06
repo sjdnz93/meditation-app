@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import { getPayload } from '../helpers/Auth';
 import { UserProfile, Video } from '../profile/Interfaces';
+const placeholderPic = require('../../images/meditation.png');
 
 type AddVideoModalProps = {
   closeAddVideoModal: () => void;
@@ -21,7 +22,7 @@ function AddVideo({ closeAddVideoModal, setUpdatedVideos }: AddVideoModalProps):
     artist: '',
     genre: '',
     length: '',
-    thumbnail: '',
+    thumbnail: placeholderPic,
     url: '',
     owner: sub
   })
@@ -134,17 +135,23 @@ function AddVideo({ closeAddVideoModal, setUpdatedVideos }: AddVideoModalProps):
   return (
     <section>
       <div className='modal-backdrop'>
-        <div className='modal-container'>
+        <div className='modal-container add-video-modal'>
           <button className='close-modal-button' onClick={closeAddVideoModal} type="button">
             x
           </button>
-          <h1>ADD VIDEO</h1>
-          <form onSubmit={processLink}>
-            <input type="text" placeholder="Insert video URL here" onChange={handleChange}></input>
-            <button type="submit">Process video</button>
+
+          <form className='video-url-form' onSubmit={processLink}>
+            <input type="text" placeholder="Enter YouTube URL here" onChange={handleChange}></input>
+            <button className='submit-video-button' type="submit">LOAD</button>
           </form>
 
-          <form onSubmit={handleSubmit}>
+          <div className='thumbnail-container'>
+            <img src={videoInfoFields.thumbnail} alt="Video thumbnail" />
+          </div>
+
+
+
+          <form className='video-details-form' onSubmit={handleSubmit}>
             <input
               type="text"
               id="title"

@@ -5,13 +5,14 @@
   // justify-content: center;
   margin: 10px;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border: 2px solid black;
+  border-radius: 4px;
   text-align: center;
   width: 200px;
 
   img {
     width: 90%;
+    border-radius: 4px;
   }
 }
 
@@ -19,3 +20,50 @@
   cursor: pointer;
   background-color: #eee;
 }
+
+.hero-wrapper {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1400px;
+}
+
+.streak-count-container {
+  border: black solid 2px;
+  border-radius: 50%;
+  width: 100px;
+  min-width: 100px;
+  height: 100px;
+  min-height: 100px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 10px;
+}
+
+.content-wrapper {
+  border-top: 2px solid black;
+}
+
+.radio-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  text-align: center;
+  margin-top: 10px;
+
+  label {
+    width: 100px;
+
+
+
+    p {
+      margin: 0;
+    }
+  }
+}
+

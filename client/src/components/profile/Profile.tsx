@@ -60,8 +60,6 @@ function Profile(): JSX.Element {
 
   const openPlayerModal = (e: React.MouseEvent<HTMLDivElement>, url: string, id: number, video: Video) => {
     e.preventDefault()
-    //setUrl(url)
-    //setId(id)
     setVideoForModal(video)
     setIsPlayerOpen(true)
   }
@@ -84,15 +82,20 @@ function Profile(): JSX.Element {
     <main>
       {userProfile && userProfile.email !== '' ?
         <>
-          <h1>Welcome, {userProfile.username}</h1>
-          <h2>You've completed {userProfile.streak_count} meditations</h2>
-          <div>
+          <div className='hero-wrapper'>
+            <div className="message-and-count-wrapper">
+              <h1>Hey {userProfile.username},</h1>
+              <h2>Choose a meditation to add to your count</h2>
+            </div>
+            <div className="streak-count-container">
+                <h2>{userProfile.streak_count}</h2>
+              </div>
+          </div>
+          <div className='content-wrapper'>
             {isAddVideoOpen && <AddVideo closeAddVideoModal={closeAddVideoModal} setUpdatedVideos={setUpdatedVideos} />}
-            <button onClick={openAddVideoModal}>
-              Click to add meditation videos
-            </button>
 
-            <div>
+
+            <div className='radio-wrapper'>
               <label>
                 <input
                   type="radio"
@@ -100,7 +103,7 @@ function Profile(): JSX.Element {
                   checked={radioButton === 'All'}
                   onChange={handleRadioChange}
                 />
-                All
+                <p>All</p>
               </label>
 
               <label>
@@ -110,7 +113,7 @@ function Profile(): JSX.Element {
                   checked={radioButton === 'Guided'}
                   onChange={handleRadioChange}
                 />
-                Guided
+                <p>Guided</p>
               </label>
 
               <label>
@@ -120,7 +123,7 @@ function Profile(): JSX.Element {
                   checked={radioButton === 'Ambient'}
                   onChange={handleRadioChange}
                 />
-                Ambient
+                <p>Ambient</p>
               </label>
 
               <label>
@@ -130,7 +133,7 @@ function Profile(): JSX.Element {
                   checked={radioButton === 'Body scan'}
                   onChange={handleRadioChange}
                 />
-                Body scan
+                <p>Body scan</p>
               </label>
 
               <label>
@@ -140,12 +143,14 @@ function Profile(): JSX.Element {
                   checked={radioButton === 'Sleep'}
                   onChange={handleRadioChange}
                 />
-                Sleep
+                <p>Sleep</p>
               </label>
             </div>
 
             {isPlayerOpen && <MediaPlayerWrapper closeModal={closePlayerModal} videoForModal={videoForModal} sub={sub} setUpdatedVideos={setUpdatedVideos} setStreakCount={setStreakCount} streakCount={streakCount} />}
-
+            <button onClick={openAddVideoModal}>
+              Click to add meditation videos
+            </button>
             {filteredVideos!.length > 0 && filteredVideos?.map(video => (
               <div key={video.id} onClick={(e) => openPlayerModal(e, video.url, video.id, video)} className='video-tile'>
                 <p>{video.title}</p>

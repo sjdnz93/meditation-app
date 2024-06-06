@@ -56,13 +56,13 @@ function MediaPlayerWrapper({ closeModal, sub, setUpdatedVideos, setStreakCount,
     <section>
       {isLoading ?
         <div className='modal-backdrop'>
-          <div className='modal-container'>
+          <div className='modal-container video-player-modal'>
             <img src={spinnerGIF} alt="loading spinner" />
           </div>
         </div>
         :
         <div className='modal-backdrop'>
-          <div className='modal-container'>
+          <div className='modal-container video-player-modal'>
             <button className='close-modal-button' onClick={closeModal} type='button'>x</button>
             <h2>{videoForModal.title}</h2>
             <p><strong>Channel:</strong> {videoForModal.artist}</p>

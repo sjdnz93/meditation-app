@@ -8,81 +8,148 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
 
-.modal-container {
-  background-color: white;
-  border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  position: relative;
-
-  @media (min-width: 768px) {
-    width: 80%;
-    max-width: 870px;
-    margin: auto;
-    padding: 20px;
-  }
-
-  @media (max-width: 767px) {
-    padding: 20px;
-  }
-
-  .close-modal-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    border-radius: 50%;
-    height: 30px;
-    width: 30px;
-    background-color: transparent;
-  }
-
-  .close-modal-button:hover {
-    cursor: pointer;
-    //background-color: red;
-    color: white;
-    border-color: white;
-  }
-
-  .react-player {
-    margin-top: 20px;
+  .modal-container {
+    border: black 2px solid;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     position: relative;
-    width: 100%;
-    height: 0;
-    padding-bottom: 56.25%;
+    padding: 20px;
 
-    @media (max-width: 768px) {
-      width: 100%;
-      height: auto;
+    .close-modal-button {
+      border-radius: 50%;
+      height: 30px;
+      width: 30px;
+      background-color: transparent;
+      color: black;
+      border-color: black;
+      border: solid 2px;
     }
 
-    div {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+    .close-modal-button:hover {
+      cursor: pointer;
+      background-color: rgba(0, 0, 0, 0.2);
 
-      iframe {
+    }
+
+    .video-url-form {
+      margin-top: 15px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-evenly;
+
+      input[type="text"] {
+        padding: 10px;
         border-radius: 4px;
+        border: 2px solid black;
         width: 100%;
-        height: 100%;
+        max-width: 500px;
+        margin: 10px;
+        background-color: transparent;
+      }
+
+      .submit-video-button {
+        height: 55px;
+        width: 55px;
+        border-radius: 50%;
+        background-color: transparent;
+        margin: 10px;
+        color: black;
+        border-color: black;
+        border: solid 2px;
+      }
+
+      .submit-video-button:hover {
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.2);
       }
     }
-  }
 
-  .delete-button-container {
-    display: flex;
-    justify-content: center;
-
-
-    .delete-button {
-      margin-top: 20px;
+    .thumbnail-container {
       width: 100%;
-      max-width: 350px;
-      height: 50px;
+      display: flex;
+      justify-content: center;
 
+      img {
+        //width: 80%;
+        width: 256px;
+        height: 144px;
+        border: 2px solid black;
+        border-radius: 4px;
+      }
     }
+
+    .video-details-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 20px;
+
+      input[type="text"],
+      select {
+        padding: 10px;
+        border-radius: 4px;
+        border: 2px solid black;
+        width: 100%;
+        max-width: 500px;
+        background-color: transparent;
+      }
+    }
+
+    .react-player {
+      margin-top: 20px;
+      position: relative;
+      width: 100%;
+      height: 0;
+      padding-bottom: 56.25%;
+
+      @media (max-width: 768px) {
+        width: 100%;
+        height: auto;
+      }
+
+      div {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+        iframe {
+          border-radius: 4px;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+
+    .delete-button-container {
+      display: flex;
+      justify-content: center;
+
+
+      .delete-button {
+        margin-top: 20px;
+        width: 100%;
+        max-width: 350px;
+        height: 50px;
+
+      }
+    }
+
   }
 
+  .add-video-modal {
+    background-image: url('../../images/background3.jpeg');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .video-player-modal {
+    background-image: url('../../images/background4.jpeg');
+    background-size: cover;
+    background-position: center;
+  }
 }

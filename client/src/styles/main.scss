@@ -1,2 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@100..900&display=swap');
 @import './components/modal.scss';
 @import './components/profile.scss';
+
+* {
+box-sizing: border-box;
+font-family: 'Catamaran', sans-serif;
+
+}
+
+body {
+  background-image: url('../images/background1.jpeg');
+  background-size: cover;
+  background-position: center;
+}
+
+h1 {
+  margin-bottom: 0;
+}
