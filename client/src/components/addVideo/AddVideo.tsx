@@ -175,17 +175,3 @@ function AddVideo({ closeAddVideoModal, setUpdatedVideos }: AddVideoModalProps):
 }
 
 export default AddVideo;
-
-
-
-// const getVideo = async (vidId: string, key: string) => {
-//   try {
-//     console.log('Making API call with key:', key);
-//     console.log('REQUEST URL ', `https://youtube.googleapis.com/youtube/v3/videos?part=snippet&id=${vidId}&key=${key}&maxResults=1`)
-//     const requestUrl = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet&id=${vidId}&key=${key}&maxResults=1`
-//     const { data } = await axios.get(requestUrl);
-//     console.log('YT RESPONSE', data);
-//   } catch (err) {
-//     console.error('Error fetching video data:', err);
-//   }
-// }

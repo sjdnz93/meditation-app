@@ -12,9 +12,11 @@ type MediaPlayerWrapperProps = {
   videoId: number
   sub: number | (() => string)
   setUpdatedVideos: React.Dispatch<React.SetStateAction<Video[]>>
+  setStreakCount: React.Dispatch<React.SetStateAction<number>>
+  streakCount: number
 }
 
-function MediaPlayerWrapper({ closeModal, url, videoId, sub, setUpdatedVideos }: MediaPlayerWrapperProps): JSX.Element {
+function MediaPlayerWrapper({ closeModal, url, videoId, sub, setUpdatedVideos, setStreakCount, streakCount }: MediaPlayerWrapperProps): JSX.Element {
 
   const [isLoading, setIsLoading] = useState(true)
 
@@ -22,13 +24,12 @@ function MediaPlayerWrapper({ closeModal, url, videoId, sub, setUpdatedVideos }:
     setIsLoading(false)
   }, [])
 
-  
+
   const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>, id: number, sub: number | (() => string)) => {
     e.preventDefault()
     console.log('ID NUMBER FOR REMOVAL', id)
     try {
       const res = window.confirm('Are you sure you want to delete this video?')
-      
       if (res) {
         await axios.delete(`/api/videos/${id}`)
         const { data }: AxiosResponse<UserProfile> = await axios.get(`/api/profile/${sub}`)
@@ -39,6 +40,17 @@ function MediaPlayerWrapper({ closeModal, url, videoId, sub, setUpdatedVideos }:
       console.log(err)
       return err
     }
+  }
+
+  const updatePlayCount = async () => {
+    try {
+      await axios.put(`/api/profile/${sub}/increase-streak/`)
+      setStreakCount(streakCount + 1)
+    } catch (err) {
+      console.log(err)
+      return (err)
+    }
+
   }
 
   return (
@@ -58,6 +70,8 @@ function MediaPlayerWrapper({ closeModal, url, videoId, sub, setUpdatedVideos }:
             <ReactPlayer
               playing={false}
               url={url}
+              controls={true}
+              onEnded={updatePlayCount}
             />
           </div>
         </div>

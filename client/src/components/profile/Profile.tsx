@@ -25,6 +25,7 @@ function Profile(): JSX.Element {
   const [isAddVideoOpen, setIsAddVideoOpen] = useState<boolean>(false)
   const [url, setUrl] = useState<string>('')
   const [id, setId] = useState<number>(0)
+  const [streakCount, setStreakCount] = useState<number>(0)
 
   useEffect(() => {
     const getProfile = async () => {
@@ -41,7 +42,7 @@ function Profile(): JSX.Element {
       }
     }
     getProfile()
-  }, [sub, updatedVideos])
+  }, [sub, updatedVideos, streakCount])
 
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRadioButton(event.target.value);
@@ -143,7 +144,7 @@ function Profile(): JSX.Element {
               </label>
             </div>
 
-            {isPlayerOpen && <MediaPlayerWrapper closeModal={closePlayerModal} url={url} videoId={id} sub={sub} setUpdatedVideos={setUpdatedVideos} />}
+            {isPlayerOpen && <MediaPlayerWrapper closeModal={closePlayerModal} url={url} videoId={id} sub={sub} setUpdatedVideos={setUpdatedVideos} setStreakCount={setStreakCount} streakCount={streakCount} />}
 
             {filteredVideos!.length > 0 && filteredVideos?.map(video => (
               <div key={video.id} onClick={(e) => openPlayerModal(e, video.url, video.id)} className='video-tile'>

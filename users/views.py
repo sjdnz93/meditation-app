@@ -59,6 +59,20 @@ class ProfileView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
     
 
+    
+
+class UpdateMeditationStreakView(APIView):
+    #UPDATE USER MEDITATION PLAY COUNT
+    #endpoint: /api/profile/<int:id>/increase-streak
+    @exceptions
+    def put(self, request, id):
+        print('UPDATE MEDITATION STREAK ROUTE HIT')
+        user = User.objects.get(id=id)
+        user.streak_count += 1
+        user.save()
+        return Response(status=status.HTTP_200_OK)
+        
+
 class RegisterView(APIView):
     
     #REGISTER ROUTE
