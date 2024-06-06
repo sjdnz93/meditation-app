@@ -1,11 +1,12 @@
 import { getPayload } from "../helpers/Auth"
 import { useEffect, useState } from "react"
 import axios, { AxiosResponse } from "axios"
-import { Link } from "react-router-dom"
+
 
 import { UserProfile, Video } from "./Interfaces"
 import Error from "../error/Error"
 import MediaPlayerWrapper from "../mediaPlayerWrapper/MediaPlayerWrapper"
+import AddVideo from "../addVideo/AddVideo"
 
 const spinnerGIF = require('../../images/spinner.gif')
 
@@ -20,7 +21,8 @@ function Profile(): JSX.Element {
   const [updatedVideos, setUpdatedVideos] = useState<Video[]>([])
   const [radioButton, setRadioButton] = useState<string>('All')
   const [filteredVideos, setFilteredVideos] = useState<Video[]>([])
-  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [isPlayerOpen, setIsPlayerOpen] = useState<boolean>(false)
+  const [isAddVideoOpen, setIsAddVideoOpen] = useState<boolean>(false)
   const [url, setUrl] = useState<string>('')
   const [id, setId] = useState<number>(0)
 
@@ -56,15 +58,24 @@ function Profile(): JSX.Element {
     }
   };
 
-  const openModal = (e: React.MouseEvent<HTMLDivElement>, url: string, id: number) => {
+  const openPlayerModal = (e: React.MouseEvent<HTMLDivElement>, url: string, id: number) => {
     e.preventDefault()
     setUrl(url)
     setId(id)
-    setIsOpen(true)
+    setIsPlayerOpen(true)
   }
 
-  const closeModal = () => {
-    setIsOpen(false)
+  const closePlayerModal = () => {
+    setIsPlayerOpen(false)
+  }
+
+  const openAddVideoModal = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    setIsAddVideoOpen(true)
+  }
+
+  const closeAddVideoModal = () => {
+    setIsAddVideoOpen(false)
   }
 
 
@@ -75,9 +86,10 @@ function Profile(): JSX.Element {
           <h1>Welcome, {userProfile.username}</h1>
           <h2>You've completed {userProfile.streak_count} meditations</h2>
           <div>
-            <Link to={'/add-video'}>
+            {isAddVideoOpen && <AddVideo closeAddVideoModal={closeAddVideoModal} setUpdatedVideos={setUpdatedVideos} />}
+            <button onClick={openAddVideoModal}>
               Click to add meditation videos
-            </Link>
+            </button>
 
             <div>
               <label>
@@ -131,10 +143,10 @@ function Profile(): JSX.Element {
               </label>
             </div>
 
-            {isOpen && <MediaPlayerWrapper closeModal={closeModal} url={url} videoId={id} sub={sub} setUpdatedVideos={setUpdatedVideos} />}
+            {isPlayerOpen && <MediaPlayerWrapper closeModal={closePlayerModal} url={url} videoId={id} sub={sub} setUpdatedVideos={setUpdatedVideos} />}
 
             {filteredVideos!.length > 0 && filteredVideos?.map(video => (
-              <div key={video.id} onClick={(e) => openModal(e, video.url, video.id)} className='video-tile'>
+              <div key={video.id} onClick={(e) => openPlayerModal(e, video.url, video.id)} className='video-tile'>
                 <p>{video.title}</p>
                 <p>{video.artist}</p>
                 <p>Length: {video.length}</p>

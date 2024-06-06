@@ -1,9 +1,14 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import axios, { AxiosResponse } from 'axios';
 import { getPayload } from '../helpers/Auth';
+import { UserProfile, Video } from '../profile/Interfaces';
 
-function AddVideo(): JSX.Element {
+type AddVideoModalProps = {
+  closeAddVideoModal: () => void;
+  setUpdatedVideos: React.Dispatch<React.SetStateAction<Video[]>>
+}
+
+function AddVideo({ closeAddVideoModal, setUpdatedVideos }: AddVideoModalProps): JSX.Element {
 
   const [urlField, setURLField] = useState('');
   const [apiKey, setApiKey] = useState('');
@@ -117,8 +122,9 @@ function AddVideo(): JSX.Element {
     try {
       const response = await axios.post('/api/add/', videoInfoFields);
       console.log('Response:', response);
-
-
+      const { data }: AxiosResponse<UserProfile> = await axios.get(`/api/profile/${sub}`)
+      setUpdatedVideos(data.videos!)
+      closeAddVideoModal()
     } catch (error) {
       console.error(error);
       return error;
@@ -126,41 +132,45 @@ function AddVideo(): JSX.Element {
   }
 
   return (
-    <main>
-      <h1>ADD VIDEO</h1>
-      <button type="button">
-        <Link to="/">Home</Link>
-      </button>
-      <form onSubmit={processLink}>
-        <input type="text" placeholder="Insert video URL here" onChange={handleChange}></input>
-        <button type="submit">Process video</button>
-      </form>
+    <section>
+      <div className='modal-backdrop'>
+        <div className='modal-container'>
+          <h1>ADD VIDEO</h1>
+          <button onClick={closeAddVideoModal} type="button">
+            CLOSE ZE MOOOOOODAL JA
+          </button>
+          <form onSubmit={processLink}>
+            <input type="text" placeholder="Insert video URL here" onChange={handleChange}></input>
+            <button type="submit">Process video</button>
+          </form>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          id="title"
-          name="title"
-          value={videoInfoFields.title}
-          onChange={handleFieldChange}
-        />
-        <input
-          type="text"
-          id="artist"
-          name="artist"
-          value={videoInfoFields.artist}
-          onChange={handleFieldChange}
-        />
-        <select value={videoInfoFields.genre} onChange={handleSelectChange} name="genre">
-          <option disabled value="">Select genre</option>
-          <option value="Guided">Guided</option>
-          <option value="Ambient">Ambient</option>
-          <option value="Body scan">Body scan</option>
-          <option value="Sleep">Sleep</option>
-        </select>
-        <button type="submit">Save video</button>
-      </form>
-    </main>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              value={videoInfoFields.title}
+              onChange={handleFieldChange}
+            />
+            <input
+              type="text"
+              id="artist"
+              name="artist"
+              value={videoInfoFields.artist}
+              onChange={handleFieldChange}
+            />
+            <select value={videoInfoFields.genre} onChange={handleSelectChange} name="genre">
+              <option disabled value="">Select genre</option>
+              <option value="Guided">Guided</option>
+              <option value="Ambient">Ambient</option>
+              <option value="Body scan">Body scan</option>
+              <option value="Sleep">Sleep</option>
+            </select>
+            <button type="submit">Save video</button>
+          </form>
+        </div>
+      </div>
+    </section>
   );
 }
 
