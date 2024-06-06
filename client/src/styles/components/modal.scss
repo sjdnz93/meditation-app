@@ -96,6 +96,21 @@
         max-width: 500px;
         background-color: transparent;
       }
+
+      .save-video-button {
+        width: 100%;
+        padding: 10px;
+        background-color: transparent;
+        border-radius: 4px;
+        color: black;
+        border-color: black;
+        border: solid 2px;
+      }
+
+      .save-video-button:hover {
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.2);
+      }
     }
 
     .react-player {

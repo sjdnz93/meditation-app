@@ -157,6 +157,7 @@ function AddVideo({ closeAddVideoModal, setUpdatedVideos }: AddVideoModalProps):
               id="title"
               name="title"
               value={videoInfoFields.title}
+              placeholder='Title'
               onChange={handleFieldChange}
             />
             <input
@@ -164,6 +165,7 @@ function AddVideo({ closeAddVideoModal, setUpdatedVideos }: AddVideoModalProps):
               id="artist"
               name="artist"
               value={videoInfoFields.artist}
+              placeholder='Channel'
               onChange={handleFieldChange}
             />
             <select value={videoInfoFields.genre} onChange={handleSelectChange} name="genre">
@@ -173,7 +175,7 @@ function AddVideo({ closeAddVideoModal, setUpdatedVideos }: AddVideoModalProps):
               <option value="Body scan">Body scan</option>
               <option value="Sleep">Sleep</option>
             </select>
-            <button type="submit">Save video</button>
+            <button className='save-video-button' type="submit">Save video</button>
           </form>
         </div>
       </div>

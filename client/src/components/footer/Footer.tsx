@@ -9,7 +9,6 @@ const Footer = (): JSX.Element => {
 
   const handleLogout = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault()
-    console.log('Button clicked')
     removeToken()
     navigate('/')
   }
