@@ -1,21 +1,45 @@
+import axios, { AxiosResponse } from "axios"
 import React, { useEffect, useState } from "react"
 import ReactPlayer from "react-player"
+import { UserProfile, Video } from "../profile/Interfaces"
 
 
 const spinnerGIF = require('../../images/spinner.gif')
 
 type MediaPlayerWrapperProps = {
   closeModal: () => void,
-  url: string
+  url: string,
+  videoId: number
+  sub: number | (() => string)
+  setUpdatedVideos: React.Dispatch<React.SetStateAction<Video[]>>
 }
 
-function MediaPlayerWrapper({ closeModal, url }: MediaPlayerWrapperProps): JSX.Element {
+function MediaPlayerWrapper({ closeModal, url, videoId, sub, setUpdatedVideos }: MediaPlayerWrapperProps): JSX.Element {
 
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     setIsLoading(false)
   }, [])
+
+  
+  const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>, id: number, sub: number | (() => string)) => {
+    e.preventDefault()
+    console.log('ID NUMBER FOR REMOVAL', id)
+    try {
+      const res = window.confirm('Are you sure you want to delete this video?')
+      
+      if (res) {
+        await axios.delete(`/api/videos/${id}`)
+        const { data }: AxiosResponse<UserProfile> = await axios.get(`/api/profile/${sub}`)
+        setUpdatedVideos(data.videos!)
+        closeModal()
+      }
+    } catch (err) {
+      console.log(err)
+      return err
+    }
+  }
 
   return (
     <section>
@@ -30,6 +54,7 @@ function MediaPlayerWrapper({ closeModal, url }: MediaPlayerWrapperProps): JSX.E
           <div className='modal-container'>
             <h1>MediaPlayerWrapper</h1>
             <button onClick={closeModal}>CLOSE THE FRICKEN MODAL</button>
+            <button onClick={(e) => handleDelete(e, videoId, sub)}>Remove</button>
             <ReactPlayer
               playing={false}
               url={url}

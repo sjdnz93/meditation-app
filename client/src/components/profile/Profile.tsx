@@ -22,12 +22,13 @@ function Profile(): JSX.Element {
   const [filteredVideos, setFilteredVideos] = useState<Video[]>([])
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [url, setUrl] = useState<string>('')
+  const [id, setId] = useState<number>(0)
 
   useEffect(() => {
     const getProfile = async () => {
       try {
         const { data }: AxiosResponse<UserProfile> = await axios.get(`/api/profile/${sub}`)
-        console.log('LOGGED USER DATA', data)
+        console.log('LOGGED IN USER DATA', data)
         setUserProfile(data)
         setFilteredVideos(data.videos!)
       } catch (err: any) {
@@ -39,27 +40,6 @@ function Profile(): JSX.Element {
     }
     getProfile()
   }, [sub, updatedVideos])
-
-  const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>, id: number) => {
-    e.preventDefault()
-    setIsOpen(false)
-    console.log('ID NUMBER FOR REMOVAL', id)
-    try {
-      const res = window.confirm('Are you sure you want to delete this video?')
-      
-      if (res) {
-        await axios.delete(`/api/videos/${id}`)
-        const { data }: AxiosResponse<UserProfile> = await axios.get(`/api/profile/${sub}`)
-        setIsOpen(false)
-        setUpdatedVideos(data.videos!)
-        
-      }
-    } catch (err) {
-      console.log(err)
-      setIsOpen(false)
-      return err
-    }
-  }
 
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRadioButton(event.target.value);
@@ -76,9 +56,10 @@ function Profile(): JSX.Element {
     }
   };
 
-  const openModal = (e: React.MouseEvent<HTMLDivElement>, url: string) => {
+  const openModal = (e: React.MouseEvent<HTMLDivElement>, url: string, id: number) => {
     e.preventDefault()
     setUrl(url)
+    setId(id)
     setIsOpen(true)
   }
 
@@ -150,20 +131,18 @@ function Profile(): JSX.Element {
               </label>
             </div>
 
-            {isOpen && <MediaPlayerWrapper closeModal={closeModal} url={url} />}
+            {isOpen && <MediaPlayerWrapper closeModal={closeModal} url={url} videoId={id} sub={sub} setUpdatedVideos={setUpdatedVideos} />}
 
             {filteredVideos!.length > 0 && filteredVideos?.map(video => (
-              <div key={video.id} onClick={(e) => openModal(e, video.url)} className='video-tile'>
+              <div key={video.id} onClick={(e) => openModal(e, video.url, video.id)} className='video-tile'>
                 <p>{video.title}</p>
                 <p>{video.artist}</p>
                 <p>Length: {video.length}</p>
                 <img src={video.thumbnail} alt={`Thumbnail for the video titled ${video.title} by ${video.artist}`} />
-                <button onClick={(e) => handleDelete(e, video.id)}>Remove</button>
               </div>
             ))
             }
           </div>
-          
         </>
         :
         <>
@@ -175,15 +154,11 @@ function Profile(): JSX.Element {
             <div>
               <img src={spinnerGIF} alt="spinner gif for loading screen" />
             </div>
-
           }
-
         </>
       }
-
     </main>
   )
-
 }
 
 export default Profile
