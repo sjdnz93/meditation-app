@@ -23,9 +23,8 @@ function Profile(): JSX.Element {
   const [filteredVideos, setFilteredVideos] = useState<Video[]>([])
   const [isPlayerOpen, setIsPlayerOpen] = useState<boolean>(false)
   const [isAddVideoOpen, setIsAddVideoOpen] = useState<boolean>(false)
-  const [url, setUrl] = useState<string>('')
-  const [id, setId] = useState<number>(0)
   const [streakCount, setStreakCount] = useState<number>(0)
+  const [videoForModal, setVideoForModal] = useState<Video>({} as Video)
 
   useEffect(() => {
     const getProfile = async () => {
@@ -59,10 +58,11 @@ function Profile(): JSX.Element {
     }
   };
 
-  const openPlayerModal = (e: React.MouseEvent<HTMLDivElement>, url: string, id: number) => {
+  const openPlayerModal = (e: React.MouseEvent<HTMLDivElement>, url: string, id: number, video: Video) => {
     e.preventDefault()
-    setUrl(url)
-    setId(id)
+    //setUrl(url)
+    //setId(id)
+    setVideoForModal(video)
     setIsPlayerOpen(true)
   }
 
@@ -144,10 +144,10 @@ function Profile(): JSX.Element {
               </label>
             </div>
 
-            {isPlayerOpen && <MediaPlayerWrapper closeModal={closePlayerModal} url={url} videoId={id} sub={sub} setUpdatedVideos={setUpdatedVideos} setStreakCount={setStreakCount} streakCount={streakCount} />}
+            {isPlayerOpen && <MediaPlayerWrapper closeModal={closePlayerModal} videoForModal={videoForModal} sub={sub} setUpdatedVideos={setUpdatedVideos} setStreakCount={setStreakCount} streakCount={streakCount} />}
 
             {filteredVideos!.length > 0 && filteredVideos?.map(video => (
-              <div key={video.id} onClick={(e) => openPlayerModal(e, video.url, video.id)} className='video-tile'>
+              <div key={video.id} onClick={(e) => openPlayerModal(e, video.url, video.id, video)} className='video-tile'>
                 <p>{video.title}</p>
                 <p>{video.artist}</p>
                 <p>Length: {video.length}</p>

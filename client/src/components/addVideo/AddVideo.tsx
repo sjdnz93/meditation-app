@@ -135,10 +135,10 @@ function AddVideo({ closeAddVideoModal, setUpdatedVideos }: AddVideoModalProps):
     <section>
       <div className='modal-backdrop'>
         <div className='modal-container'>
-          <h1>ADD VIDEO</h1>
-          <button onClick={closeAddVideoModal} type="button">
-            CLOSE ZE MOOOOOODAL JA
+          <button className='close-modal-button' onClick={closeAddVideoModal} type="button">
+            x
           </button>
+          <h1>ADD VIDEO</h1>
           <form onSubmit={processLink}>
             <input type="text" placeholder="Insert video URL here" onChange={handleChange}></input>
             <button type="submit">Process video</button>

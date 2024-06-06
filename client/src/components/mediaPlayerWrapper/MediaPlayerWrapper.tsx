@@ -8,15 +8,14 @@ const spinnerGIF = require('../../images/spinner.gif')
 
 type MediaPlayerWrapperProps = {
   closeModal: () => void,
-  url: string,
-  videoId: number
   sub: number | (() => string)
   setUpdatedVideos: React.Dispatch<React.SetStateAction<Video[]>>
   setStreakCount: React.Dispatch<React.SetStateAction<number>>
   streakCount: number
+  videoForModal: Video
 }
 
-function MediaPlayerWrapper({ closeModal, url, videoId, sub, setUpdatedVideos, setStreakCount, streakCount }: MediaPlayerWrapperProps): JSX.Element {
+function MediaPlayerWrapper({ closeModal, sub, setUpdatedVideos, setStreakCount, streakCount, videoForModal }: MediaPlayerWrapperProps): JSX.Element {
 
   const [isLoading, setIsLoading] = useState(true)
 
@@ -64,15 +63,22 @@ function MediaPlayerWrapper({ closeModal, url, videoId, sub, setUpdatedVideos, s
         :
         <div className='modal-backdrop'>
           <div className='modal-container'>
-            <h1>MediaPlayerWrapper</h1>
-            <button onClick={closeModal}>CLOSE THE FRICKEN MODAL</button>
-            <button onClick={(e) => handleDelete(e, videoId, sub)}>Remove</button>
+            <button className='close-modal-button' onClick={closeModal} type='button'>x</button>
+            <h2>{videoForModal.title}</h2>
+            <p><strong>Channel:</strong> {videoForModal.artist}</p>
+            <p><strong>Genre:</strong> {videoForModal.genre}</p>
+            <p><strong>Duration:</strong> {videoForModal.length}</p>
             <ReactPlayer
               playing={false}
-              url={url}
+              url={videoForModal.url}
               controls={true}
               onEnded={updatePlayCount}
+              width='100%' height='100%'
+              className='react-player'
             />
+            <div className='delete-button-container'>
+              <button className='delete-button' onClick={(e) => handleDelete(e, videoForModal.id, sub)}>Delete meditation?</button>
+            </div>
           </div>
         </div>
       }
