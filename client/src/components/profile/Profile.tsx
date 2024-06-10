@@ -8,7 +8,9 @@ import Error from "../error/Error"
 import MediaPlayerWrapper from "../mediaPlayerWrapper/MediaPlayerWrapper"
 import AddVideo from "../addVideo/AddVideo"
 
+
 const spinnerGIF = require('../../images/spinner.gif')
+const placeholderPic = require('../../images/meditation.png')
 
 
 function Profile(): JSX.Element {
@@ -55,6 +57,8 @@ function Profile(): JSX.Element {
       setFilteredVideos(userProfile!.videos!.filter(video => video.genre === 'Body scan'))
     } else if (event.target.value === 'Sleep') {
       setFilteredVideos(userProfile!.videos!.filter(video => video.genre === 'Sleep'))
+    } else if (event.target.value === 'ASMR') {
+      setFilteredVideos(userProfile!.videos!.filter(video => video.genre === 'ASMR'))
     }
   };
 
@@ -68,7 +72,7 @@ function Profile(): JSX.Element {
     setIsPlayerOpen(false)
   }
 
-  const openAddVideoModal = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const openAddVideoModal = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault()
     setIsAddVideoOpen(true)
   }
@@ -88,8 +92,8 @@ function Profile(): JSX.Element {
               <h2>Choose a meditation to add to your count</h2>
             </div>
             <div className="streak-count-container">
-                <h2>{userProfile.streak_count}</h2>
-              </div>
+              <h2>{userProfile.streak_count}</h2>
+            </div>
           </div>
           <div className='content-wrapper'>
             {isAddVideoOpen && <AddVideo closeAddVideoModal={closeAddVideoModal} setUpdatedVideos={setUpdatedVideos} />}
@@ -145,21 +149,42 @@ function Profile(): JSX.Element {
                 />
                 <p>Sleep</p>
               </label>
+
+              <label>
+                <input
+                  type="radio"
+                  value="ASMR"
+                  checked={radioButton === 'ASMR'}
+                  onChange={handleRadioChange}
+                />
+                <p>ASMR</p>
+              </label>
             </div>
 
             {isPlayerOpen && <MediaPlayerWrapper closeModal={closePlayerModal} videoForModal={videoForModal} sub={sub} setUpdatedVideos={setUpdatedVideos} setStreakCount={setStreakCount} streakCount={streakCount} />}
-            <button onClick={openAddVideoModal}>
-              Click to add meditation videos
-            </button>
-            {filteredVideos!.length > 0 && filteredVideos?.map(video => (
-              <div key={video.id} onClick={(e) => openPlayerModal(e, video.url, video.id, video)} className='video-tile'>
-                <p>{video.title}</p>
-                <p>{video.artist}</p>
-                <p>Length: {video.length}</p>
-                <img src={video.thumbnail} alt={`Thumbnail for the video titled ${video.title} by ${video.artist}`} />
+            <div className='master-tile-container'>
+              <div className='video-tile' onClick={(e) => openAddVideoModal(e)}>
+                <div className='video-tile-image-container' style={{ backgroundImage: `url(${placeholderPic})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '150px'}}>
+                  {/* <img src={placeholderPic} alt="meditation stencil" /> */}
+                </div>
+                <div className='video-tile-text-container'>
+                  <p>Click to add meditation videos</p>
+                </div>
               </div>
-            ))
-            }
+              {filteredVideos!.length > 0 && filteredVideos?.map(video => (
+                <div key={video.id} onClick={(e) => openPlayerModal(e, video.url, video.id, video)} className='video-tile'>
+                  <div className='video-tile-image-container' style={{ backgroundImage: `url(${video.thumbnail})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '150px'}}>
+                    {/* <img src={video.thumbnail} alt={`Thumbnail for the video titled ${video.title} by ${video.artist}`} /> */}
+                  </div>
+                  <div className='video-tile-text-container'>
+                    <p>{video.title}</p>
+                    <p>{video.artist}</p>
+                    <p>Length: {video.length}</p>
+                  </div>
+                </div>
+              ))
+              }
+            </div>
           </div>
         </>
         :

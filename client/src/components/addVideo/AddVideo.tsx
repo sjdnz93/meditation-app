@@ -174,6 +174,7 @@ function AddVideo({ closeAddVideoModal, setUpdatedVideos }: AddVideoModalProps):
               <option value="Ambient">Ambient</option>
               <option value="Body scan">Body scan</option>
               <option value="Sleep">Sleep</option>
+              <option value="ASMR">ASMR</option>
             </select>
             <button className='save-video-button' type="submit">Save video</button>
           </form>
