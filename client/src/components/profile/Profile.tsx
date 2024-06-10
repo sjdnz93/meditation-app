@@ -89,10 +89,10 @@ function Profile(): JSX.Element {
           <div className='hero-wrapper'>
             <div className="message-and-count-wrapper">
               <h1>Hey {userProfile.username},</h1>
-              <h2>Choose a meditation to add to your count</h2>
+              <h2>Complete a meditation to add to your tally</h2>
             </div>
             <div className="streak-count-container">
-              <h2>{userProfile.streak_count}</h2>
+              <h3>{userProfile.streak_count}</h3>
             </div>
           </div>
           <div className='content-wrapper'>
@@ -164,7 +164,7 @@ function Profile(): JSX.Element {
             {isPlayerOpen && <MediaPlayerWrapper closeModal={closePlayerModal} videoForModal={videoForModal} sub={sub} setUpdatedVideos={setUpdatedVideos} setStreakCount={setStreakCount} streakCount={streakCount} />}
             <div className='master-tile-container'>
               <div className='video-tile' onClick={(e) => openAddVideoModal(e)}>
-                <div className='video-tile-image-container' style={{ backgroundImage: `url(${placeholderPic})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '150px'}}>
+                <div className='video-tile-image-container' style={{ backgroundImage: `url(${placeholderPic})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '150px' }}>
                   {/* <img src={placeholderPic} alt="meditation stencil" /> */}
                 </div>
                 <div className='video-tile-text-container'>
@@ -173,7 +173,7 @@ function Profile(): JSX.Element {
               </div>
               {filteredVideos!.length > 0 && filteredVideos?.map(video => (
                 <div key={video.id} onClick={(e) => openPlayerModal(e, video.url, video.id, video)} className='video-tile'>
-                  <div className='video-tile-image-container' style={{ backgroundImage: `url(${video.thumbnail})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '150px'}}>
+                  <div className='video-tile-image-container' style={{ backgroundImage: `url(${video.thumbnail})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '150px' }}>
                     {/* <img src={video.thumbnail} alt={`Thumbnail for the video titled ${video.title} by ${video.artist}`} /> */}
                   </div>
                   <div className='video-tile-text-container'>
@@ -184,6 +184,14 @@ function Profile(): JSX.Element {
                 </div>
               ))
               }
+              <div className='video-tile' onClick={(e) => openAddVideoModal(e)}>
+                <div className='video-tile-image-container' style={{ backgroundImage: `url(${placeholderPic})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '150px' }}>
+                  {/* <img src={placeholderPic} alt="meditation stencil" /> */}
+                </div>
+                <div className='video-tile-text-container'>
+                  <p>Click to add meditation videos</p>
+                </div>
+              </div>
             </div>
           </div>
         </>

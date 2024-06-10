@@ -15,15 +15,20 @@ body {
 }
 
 main {
-  height: calc(100vh - 55px);
+  height: calc(100vh - 30px);
 }
 
-h1 {
-  margin-bottom: 0;
-}
+// h1 {
+//   margin-bottom: 0;
+//   font-size: 1.5em;
+// }
+
+// h2 {
+//   font-size: 1.2em;
+// }
 
 footer {
-  width: 100%;
+  width: 90%;
   border-top: solid 2px black;
 
   button {
