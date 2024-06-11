@@ -16,17 +16,18 @@
     border-radius: 4px;
     text-align: center;
     width: 100%;
+    min-width: 213px;
     height: 150px;
 
     .video-tile-image-container {
 
-      
+
       width: 30%;
       border: 2px solid black;
       border-radius: '4px';
       border-left: 0px;
-      
-      
+
+
     }
 
     .video-tile-text-container {
@@ -38,7 +39,7 @@
       // white-space: nowrap;
       // overflow: hidden;
       // text-overflow: ellipsis;
-      
+
 
 
       p {
@@ -58,7 +59,7 @@
     .video-tile {
       width: calc(100% / 2 - 20px);
     }
-    
+
   }
 
   @media screen and (min-width: 1024px) {
@@ -66,7 +67,7 @@
     .video-tile {
       width: calc(100% / 3 - 20px);
     }
-    
+
   }
 
 }
@@ -94,7 +95,7 @@
 .content-wrapper {
   // border-top: 2px solid black;
   max-height: calc(100vh - 1em);
-  overflow: auto;
+  //overflow: auto;
 }
 
 .radio-wrapper {
@@ -127,22 +128,37 @@
   margin-left: 10px;
 }
 
-// h1 {
-//   margin-bottom: 0;
-//   font-size: 150%;
-// }
 
-// h2 {
-//   font-size: 120%;
-// }
+@media screen and (min-width: 768px) {
 
-h1, h2, h3 {
+  .streak-count-container {
+    height: 75px;
+    width: 75px;
+  }
+
+}
+
+@media screen and (min-width: 1024px) {
+
+  .streak-count-container {
+    height: 90px;
+    width: 90px;
+  }
+
+}
+
+h1,
+h2,
+h3 {
   font-size: clamp(1rem, min(8vh, 2.5vw), 1.4rem);
   margin: 0.5rem 0;
 }
 
 @media (max-height: 600px) {
-  h1, h2, h3 {
+
+  h1,
+  h2,
+  h3 {
     font-size: clamp(0.8rem, min(6vh, 2vw), 1.2rem);
   }
 
@@ -153,7 +169,10 @@ h1, h2, h3 {
 }
 
 @media (max-height: 400px) {
-  h1, h2, h3 {
+
+  h1,
+  h2,
+  h3 {
     font-size: clamp(0.6rem, min(4vh, 1.5vw), 0.8rem);
   }
 
