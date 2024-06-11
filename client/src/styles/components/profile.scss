@@ -84,7 +84,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  height: 10vh;
+  height: 15vh;
   border-bottom: 2px solid black;
   padding-bottom: 2%;
   margin-top: 2%;
@@ -93,9 +93,7 @@
 
 
 .content-wrapper {
-  // border-top: 2px solid black;
-  max-height: calc(100vh - 1em);
-  //overflow: auto;
+  max-height: 100%;
 }
 
 .radio-wrapper {

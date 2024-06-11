@@ -8,6 +8,8 @@ import Error from "../error/Error"
 import MediaPlayerWrapper from "../mediaPlayerWrapper/MediaPlayerWrapper"
 import AddVideo from "../addVideo/AddVideo"
 
+import Logout from "../logout/Logout"
+
 
 const spinnerGIF = require('../../images/spinner.gif')
 const placeholderPic = require('../../images/meditation.png')
@@ -90,10 +92,12 @@ function Profile(): JSX.Element {
             <div className="message-and-count-wrapper">
               <h1>Hey {userProfile.username},</h1>
               <h2>Complete a meditation to add to your tally</h2>
+              <Logout />
             </div>
             <div className="streak-count-container">
-              <h3>{userProfile.streak_count}</h3>
+              <h3>{userProfile.streak_count}</h3>  
             </div>
+            
           </div>
           <div className='content-wrapper'>
             {isAddVideoOpen && <AddVideo closeAddVideoModal={closeAddVideoModal} setUpdatedVideos={setUpdatedVideos} />}
@@ -164,18 +168,14 @@ function Profile(): JSX.Element {
             {isPlayerOpen && <MediaPlayerWrapper closeModal={closePlayerModal} videoForModal={videoForModal} sub={sub} setUpdatedVideos={setUpdatedVideos} setStreakCount={setStreakCount} streakCount={streakCount} />}
             <div className='master-tile-container'>
               <div className='video-tile' onClick={(e) => openAddVideoModal(e)}>
-                <div className='video-tile-image-container' style={{ backgroundImage: `url(${placeholderPic})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '150px' }}>
-                  {/* <img src={placeholderPic} alt="meditation stencil" /> */}
-                </div>
+                <div className='video-tile-image-container' style={{ backgroundImage: `url(${placeholderPic})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '150px' }}></div>
                 <div className='video-tile-text-container'>
                   <p>Click to add meditation videos</p>
                 </div>
               </div>
               {filteredVideos!.length > 0 && filteredVideos?.map(video => (
                 <div key={video.id} onClick={(e) => openPlayerModal(e, video.url, video.id, video)} className='video-tile'>
-                  <div className='video-tile-image-container' style={{ backgroundImage: `url(${video.thumbnail})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '150px' }}>
-                    {/* <img src={video.thumbnail} alt={`Thumbnail for the video titled ${video.title} by ${video.artist}`} /> */}
-                  </div>
+                  <div className='video-tile-image-container' style={{ backgroundImage: `url(${video.thumbnail})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '150px' }}></div>
                   <div className='video-tile-text-container'>
                     <p>{video.title}</p>
                     <p>{video.artist}</p>
@@ -184,14 +184,7 @@ function Profile(): JSX.Element {
                 </div>
               ))
               }
-              <div className='video-tile' onClick={(e) => openAddVideoModal(e)}>
-                <div className='video-tile-image-container' style={{ backgroundImage: `url(${placeholderPic})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '150px' }}>
-                  {/* <img src={placeholderPic} alt="meditation stencil" /> */}
-                </div>
-                <div className='video-tile-text-container'>
-                  <p>Click to add meditation videos</p>
-                </div>
-              </div>
+              
             </div>
           </div>
         </>
@@ -208,6 +201,7 @@ function Profile(): JSX.Element {
           }
         </>
       }
+      
     </main>
   )
 }
