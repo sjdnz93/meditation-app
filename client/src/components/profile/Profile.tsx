@@ -23,7 +23,7 @@ function Profile(): JSX.Element {
   const [userProfile, setUserProfile] = useState<UserProfile>()
   const [error, setError] = useState<string>('')
   const [updatedVideos, setUpdatedVideos] = useState<Video[]>([])
-  const [radioButton, setRadioButton] = useState<string>('All')
+  const [radioButton, setRadioButton] = useState<string | number>('All')
   const [filteredVideos, setFilteredVideos] = useState<Video[]>([])
   const [isPlayerOpen, setIsPlayerOpen] = useState<boolean>(false)
   const [isAddVideoOpen, setIsAddVideoOpen] = useState<boolean>(false)
@@ -51,16 +51,16 @@ function Profile(): JSX.Element {
     setRadioButton(event.target.value);
     if (event.target.value === 'All') {
       setFilteredVideos(userProfile!.videos!)
-    } else if (event.target.value === 'Guided') {
-      setFilteredVideos(userProfile!.videos!.filter(video => video.genre === 'Guided'))
-    } else if (event.target.value === 'Ambient') {
-      setFilteredVideos(userProfile!.videos!.filter(video => video.genre === 'Ambient'))
-    } else if (event.target.value === 'Body scan') {
-      setFilteredVideos(userProfile!.videos!.filter(video => video.genre === 'Body scan'))
-    } else if (event.target.value === 'Sleep') {
-      setFilteredVideos(userProfile!.videos!.filter(video => video.genre === 'Sleep'))
-    } else if (event.target.value === 'ASMR') {
-      setFilteredVideos(userProfile!.videos!.filter(video => video.genre === 'ASMR'))
+    } else if (parseInt(event.target.value) === 1) {
+      setFilteredVideos(userProfile!.videos!.filter(video => video.genre.includes(1)))
+    } else if (parseInt(event.target.value) === 2) {
+      setFilteredVideos(userProfile!.videos!.filter(video => video.genre.includes(2)))
+    } else if (parseInt(event.target.value) === 3) {
+      setFilteredVideos(userProfile!.videos!.filter(video => video.genre.includes(3)))
+    } else if (parseInt(event.target.value) === 4) {
+      setFilteredVideos(userProfile!.videos!.filter(video => video.genre.includes(4)))
+    } else if (parseInt(event.target.value) === 5) {
+      setFilteredVideos(userProfile!.videos!.filter(video => video.genre.includes(5)))
     }
   };
 
@@ -117,8 +117,8 @@ function Profile(): JSX.Element {
               <label>
                 <input
                   type="radio"
-                  value="Guided"
-                  checked={radioButton === 'Guided'}
+                  value={1}
+                  checked={radioButton === 1}
                   onChange={handleRadioChange}
                 />
                 <p>Guided</p>
@@ -127,8 +127,8 @@ function Profile(): JSX.Element {
               <label>
                 <input
                   type="radio"
-                  value="Ambient"
-                  checked={radioButton === 'Ambient'}
+                  value={2}
+                  checked={radioButton === 2}
                   onChange={handleRadioChange}
                 />
                 <p>Ambient</p>
@@ -137,8 +137,8 @@ function Profile(): JSX.Element {
               <label>
                 <input
                   type="radio"
-                  value="Body scan"
-                  checked={radioButton === 'Body scan'}
+                  value={3}
+                  checked={radioButton === 3}
                   onChange={handleRadioChange}
                 />
                 <p>Body scan</p>
@@ -147,8 +147,8 @@ function Profile(): JSX.Element {
               <label>
                 <input
                   type="radio"
-                  value="Sleep"
-                  checked={radioButton === 'Sleep'}
+                  value={4}
+                  checked={radioButton === 4}
                   onChange={handleRadioChange}
                 />
                 <p>Sleep</p>
@@ -157,8 +157,8 @@ function Profile(): JSX.Element {
               <label>
                 <input
                   type="radio"
-                  value="ASMR"
-                  checked={radioButton === 'ASMR'}
+                  value={5}
+                  checked={radioButton === 5}
                   onChange={handleRadioChange}
                 />
                 <p>ASMR</p>

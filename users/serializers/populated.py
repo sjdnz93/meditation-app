@@ -6,6 +6,8 @@ class PopulatedUserSerializer(UserSerializer):
 
     class Meta(UserSerializer.Meta):
         fields = UserSerializer.Meta.fields + ('streak_count', 'videos')
+        
+
     
 
 

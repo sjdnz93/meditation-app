@@ -20,7 +20,7 @@ function AddVideo({ closeAddVideoModal, setUpdatedVideos }: AddVideoModalProps):
   const [videoInfoFields, setVideoInfoFields] = useState({
     title: '',
     artist: '',
-    genre: '',
+    genre: [] as number[],
     length: '',
     thumbnail: placeholderPic,
     url: '',
@@ -111,9 +111,26 @@ function AddVideo({ closeAddVideoModal, setUpdatedVideos }: AddVideoModalProps):
     setVideoInfoFields({ ...videoInfoFields, [e.target.name]: e.target.value })
   }
 
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setVideoInfoFields({ ...videoInfoFields, [e.target.name]: e.target.value })
-  }
+  // const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  //   setVideoInfoFields({ ...videoInfoFields, [e.target.name]: e.target.value })
+  // }
+
+  const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedGenre = parseInt(event.target.value, 10);
+    const isChecked = event.target.checked;
+  
+    if (isChecked) {
+      setVideoInfoFields(prevState => ({
+        ...prevState,
+        genre: [...prevState.genre, selectedGenre]
+      }));
+    } else {
+      setVideoInfoFields(prevState => ({
+        ...prevState,
+        genre: prevState.genre.filter(genre => genre !== selectedGenre)
+      }));
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -168,14 +185,60 @@ function AddVideo({ closeAddVideoModal, setUpdatedVideos }: AddVideoModalProps):
               placeholder='Channel'
               onChange={handleFieldChange}
             />
-            <select value={videoInfoFields.genre} onChange={handleSelectChange} name="genre">
-              <option disabled value="">Select genre</option>
-              <option value="Guided">Guided</option>
-              <option value="Ambient">Ambient</option>
-              <option value="Body scan">Body scan</option>
-              <option value="Sleep">Sleep</option>
-              <option value="ASMR">ASMR</option>
-            </select>
+
+            <div>
+              <label>
+                <input
+                  type="checkbox"
+                  name="genre"
+                  value= '1'
+                  checked={videoInfoFields.genre.includes(1)}
+                  onChange={handleRadioChange}
+                />
+                Guided
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  name="genre"
+                  value="2"
+                  checked={videoInfoFields.genre.includes(2)}
+                  onChange={handleRadioChange}
+                />
+                Ambient
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  name="genre"
+                  value="3"
+                  checked={videoInfoFields.genre.includes(3)}
+                  onChange={handleRadioChange}
+                />
+                Body scan
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  name="genre"
+                  value="4"
+                  checked={videoInfoFields.genre.includes(4)}
+                  onChange={handleRadioChange}
+                />
+                Sleep
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  name="genre"
+                  value="5"
+                  checked={videoInfoFields.genre.includes(5)}
+                  onChange={handleRadioChange}
+                />
+                ASMR
+              </label>
+            </div>
+
             <button className='save-video-button' type="submit">Save video</button>
           </form>
         </div>

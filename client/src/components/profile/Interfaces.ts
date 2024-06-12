@@ -11,7 +11,7 @@ export interface Video {
   id: number, 
   title: string,
   artist: string,
-  genre: string,
+  genre: number[],
   length: string,
   thumbnail: string,
   url: string,

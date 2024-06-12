@@ -15,6 +15,7 @@ type MediaPlayerWrapperProps = {
   videoForModal: Video
 }
 
+
 function MediaPlayerWrapper({ closeModal, sub, setUpdatedVideos, setStreakCount, streakCount, videoForModal }: MediaPlayerWrapperProps): JSX.Element {
 
   const [isLoading, setIsLoading] = useState(true)
@@ -52,6 +53,19 @@ function MediaPlayerWrapper({ closeModal, sub, setUpdatedVideos, setStreakCount,
 
   }
 
+  const extractGenres = (genres: number[]): string => {
+    console.log('genres   ',  genres);
+  
+    const genreNames: { [key: number]: string } = {
+      1: 'Guided',
+      2: 'Ambient',
+      3: 'Body scan',
+      4: 'Sleep',
+      5: 'ASMR',
+    };  
+    return genres.map((genre) => genreNames[genre] || '').join(', ');
+  };
+
   return (
     <section>
       {isLoading ?
@@ -66,7 +80,7 @@ function MediaPlayerWrapper({ closeModal, sub, setUpdatedVideos, setStreakCount,
             <button className='close-modal-button' onClick={closeModal} type='button'>x</button>
             <h2>{videoForModal.title}</h2>
             <p><strong>Channel:</strong> {videoForModal.artist}</p>
-            <p><strong>Genre:</strong> {videoForModal.genre}</p>
+            <p><strong>Genre:</strong> {extractGenres(videoForModal.genre)}</p>
             <p><strong>Duration:</strong> {videoForModal.length}</p>
             <ReactPlayer
               playing={false}
