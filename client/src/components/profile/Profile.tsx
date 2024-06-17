@@ -23,7 +23,7 @@ function Profile(): JSX.Element {
   const [userProfile, setUserProfile] = useState<UserProfile>()
   const [error, setError] = useState<string>('')
   const [updatedVideos, setUpdatedVideos] = useState<Video[]>([])
-  const [radioButton, setRadioButton] = useState<string | number>('All')
+  const [radioButton, setRadioButton] = useState<string>('All')
   const [filteredVideos, setFilteredVideos] = useState<Video[]>([])
   const [isPlayerOpen, setIsPlayerOpen] = useState<boolean>(false)
   const [isAddVideoOpen, setIsAddVideoOpen] = useState<boolean>(false)
@@ -49,17 +49,18 @@ function Profile(): JSX.Element {
 
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRadioButton(event.target.value);
+    console.log('VALUE ', event.target.value)
     if (event.target.value === 'All') {
       setFilteredVideos(userProfile!.videos!)
-    } else if (parseInt(event.target.value) === 1) {
+    } else if (event.target.value === 'Guided') {
       setFilteredVideos(userProfile!.videos!.filter(video => video.genre.includes(1)))
-    } else if (parseInt(event.target.value) === 2) {
+    } else if (event.target.value === "Ambient") {
       setFilteredVideos(userProfile!.videos!.filter(video => video.genre.includes(2)))
-    } else if (parseInt(event.target.value) === 3) {
+    } else if (event.target.value === "Body scan") {
       setFilteredVideos(userProfile!.videos!.filter(video => video.genre.includes(3)))
-    } else if (parseInt(event.target.value) === 4) {
+    } else if (event.target.value === "Sleep") {
       setFilteredVideos(userProfile!.videos!.filter(video => video.genre.includes(4)))
-    } else if (parseInt(event.target.value) === 5) {
+    } else if (event.target.value === "ASMR") {
       setFilteredVideos(userProfile!.videos!.filter(video => video.genre.includes(5)))
     }
   };
@@ -117,8 +118,8 @@ function Profile(): JSX.Element {
               <label>
                 <input
                   type="radio"
-                  value={1}
-                  checked={radioButton === 1}
+                  value="Guided"
+                  checked={radioButton === "Guided"}
                   onChange={handleRadioChange}
                 />
                 <p>Guided</p>
@@ -127,8 +128,8 @@ function Profile(): JSX.Element {
               <label>
                 <input
                   type="radio"
-                  value={2}
-                  checked={radioButton === 2}
+                  value="Ambient"
+                  checked={radioButton === "Ambient"}
                   onChange={handleRadioChange}
                 />
                 <p>Ambient</p>
@@ -137,8 +138,8 @@ function Profile(): JSX.Element {
               <label>
                 <input
                   type="radio"
-                  value={3}
-                  checked={radioButton === 3}
+                  value="Body scan"
+                  checked={radioButton === "Body scan"}
                   onChange={handleRadioChange}
                 />
                 <p>Body scan</p>
@@ -147,8 +148,8 @@ function Profile(): JSX.Element {
               <label>
                 <input
                   type="radio"
-                  value={4}
-                  checked={radioButton === 4}
+                  value="Sleep"
+                  checked={radioButton === "Sleep"}
                   onChange={handleRadioChange}
                 />
                 <p>Sleep</p>
@@ -157,8 +158,8 @@ function Profile(): JSX.Element {
               <label>
                 <input
                   type="radio"
-                  value={5}
-                  checked={radioButton === 5}
+                  value="ASMR"
+                  checked={radioButton === "ASMR"}
                   onChange={handleRadioChange}
                 />
                 <p>ASMR</p>
