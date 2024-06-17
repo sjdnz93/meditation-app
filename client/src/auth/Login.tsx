@@ -61,12 +61,12 @@ function Login(): JSX.Element {
         <div className='login-register-content-box'>
           <h1>Meditation Station</h1>
           <form className='login-register-form' onSubmit={handleSubmit}>
-            <h2>Login:</h2>
+            <h2>Login</h2>
             <input type='email' name='email' placeholder='Email' value={formFields.email} onChange={handleChange}></input>
             <input type='password' name='password' placeholder='Password' value={formFields.password} onChange={handleChange}></input>
-            <button type='submit'>Login</button>
+            <button className='submit-auth-button' type='submit'>Login</button>
           </form>
-          <Link to='/register'>Don't have an account? Click here to register</Link>
+          <Link className='swap-auth-screen' to='/register'>Don't have an account? Click here to register</Link>
           {error.length > 0 && <h3>Login attempt failed</h3>}
           {error && <p>{error}</p>}
         </div>

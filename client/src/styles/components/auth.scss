@@ -10,6 +10,8 @@
     border: solid 2px black;
     border-radius: 4px;
     padding: 15px;
+    width: 340px;
+    text-align: center;
 
     .login-register-form {
 
@@ -17,9 +19,39 @@
       flex-direction: column;
 
       input {
+        padding: 10px;
+        border-radius: 4px;
+        border: 2px solid black;
         margin: 10px;
+        background-color: transparent;
       }
 
+      .submit-auth-button {
+        margin: 10px;
+        padding: 10px;
+        background-color: transparent;
+        border-radius: 4px;
+        color: black;
+        border-color: black;
+        border: solid 2px;
+      }
+
+      .submit-auth-button:hover {
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.2);
+      }
+
+    }
+
+    .swap-auth-screen {
+      font-size: 10px;
+      text-decoration: underline;
+      color: black;
+    }
+
+    .swap-auth-screen:hover {
+      cursor: pointer;
+      color: grey;
     }
   }
 

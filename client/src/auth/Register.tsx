@@ -79,9 +79,9 @@ function Register(): JSX.Element {
             <input type='text' name='first_name' placeholder='First name' value={formFields.first_name} onChange={handleChange}></input>
             <input type='password' name='password' placeholder='Password' value={formFields.password} onChange={handleChange}></input>
             <input type='password' name='password_confirmation' placeholder='Confirm password' value={formFields.password_confirmation} onChange={handleChange}></input>
-            <button type='submit'>Register</button>
+            <button className='submit-auth-button' type='submit'>Register</button>
           </form>
-          <Link to='/'>Already have an account? Click here to login</Link>
+          <Link className='swap-auth-screen' to='/'>Already have an account? Click here to login</Link>
           {error.length > 0 && <h3>Register attempt failed</h3>}
           {error && error.map((item, index) => (
             <p key={index}>{item}</p>
