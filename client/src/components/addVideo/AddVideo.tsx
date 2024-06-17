@@ -186,7 +186,7 @@ function AddVideo({ closeAddVideoModal, setUpdatedVideos }: AddVideoModalProps):
               onChange={handleFieldChange}
             />
 
-            <div>
+            <div className='add-video-checkboxes'>
               <label>
                 <input
                   type="checkbox"
