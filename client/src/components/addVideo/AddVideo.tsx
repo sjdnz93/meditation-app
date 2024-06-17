@@ -111,9 +111,6 @@ function AddVideo({ closeAddVideoModal, setUpdatedVideos }: AddVideoModalProps):
     setVideoInfoFields({ ...videoInfoFields, [e.target.name]: e.target.value })
   }
 
-  // const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-  //   setVideoInfoFields({ ...videoInfoFields, [e.target.name]: e.target.value })
-  // }
 
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedGenre = parseInt(event.target.value, 10);

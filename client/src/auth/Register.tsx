@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import axios from 'axios'
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 import { RegisterFormInfo, RegisterRequestError } from './Interfaces'
 
@@ -69,20 +69,25 @@ function Register(): JSX.Element {
 
   return (
     <main>
-      <h1>Register</h1>
-      <form className='infoForm' onSubmit={handleSubmit}>
-        <input type='text' name='username' placeholder='Username' value={formFields.username} onChange={handleChange}></input>
-        <input type='email' name='email' placeholder='Email' value={formFields.email} onChange={handleChange}></input>
-        <input type='text' name='first_name' placeholder='First name' value={formFields.first_name} onChange={handleChange}></input>
-        <input type='password' name='password' placeholder='Password' value={formFields.password} onChange={handleChange}></input>
-        <input type='password' name='password_confirmation' placeholder='Confirm password' value={formFields.password_confirmation} onChange={handleChange}></input>
-        <button type='submit'>Register</button>
-      </form>
-      {error.length > 0 && <h3>Register attempt failed</h3>}
-      {error && error.map((item, index) => (
-        <p key={index}>{item}</p>
-      ))}
+      <div className='login-register-content-container'>
+        <div className='login-register-content-box'>
 
+          <form className='login-register-form' onSubmit={handleSubmit}>
+            <h2>Register</h2>
+            <input type='text' name='username' placeholder='Username' value={formFields.username} onChange={handleChange}></input>
+            <input type='email' name='email' placeholder='Email' value={formFields.email} onChange={handleChange}></input>
+            <input type='text' name='first_name' placeholder='First name' value={formFields.first_name} onChange={handleChange}></input>
+            <input type='password' name='password' placeholder='Password' value={formFields.password} onChange={handleChange}></input>
+            <input type='password' name='password_confirmation' placeholder='Confirm password' value={formFields.password_confirmation} onChange={handleChange}></input>
+            <button type='submit'>Register</button>
+          </form>
+          <Link to='/'>Already have an account? Click here to login</Link>
+          {error.length > 0 && <h3>Register attempt failed</h3>}
+          {error && error.map((item, index) => (
+            <p key={index}>{item}</p>
+          ))}
+        </div>
+      </div>
     </main>
   )
 }

@@ -1,0 +1,29 @@
+.login-register-content-container {
+
+  height: calc(100vh - 16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .login-register-content-box {
+
+    border: solid 2px black;
+    border-radius: 4px;
+    padding: 15px;
+
+    .login-register-form {
+
+      display: flex;
+      flex-direction: column;
+
+      input {
+        margin: 10px;
+      }
+
+    }
+  }
+
+
+
+
+}
